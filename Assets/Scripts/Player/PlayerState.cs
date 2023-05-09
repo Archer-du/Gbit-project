@@ -13,6 +13,7 @@ namespace GbitProjectState
 		public bool falling;
 		public bool attacking;
 		public bool dashing;
+		public bool sliding;
 		public bool touching;	//entered the designated range of the enemy
 		public bool hitted;
 		public bool coyote;		//coyote time range check
@@ -23,6 +24,7 @@ namespace GbitProjectState
 			running = true;
 			attacking = false;
 			dashing = false;
+			sliding = false;
 			touching = false;
 			hitted = false;
 			coyote = false;

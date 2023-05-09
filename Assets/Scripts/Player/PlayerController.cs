@@ -20,26 +20,33 @@ namespace GbitProjectControl
 		[Header("Physics")]
 		//[SerializeField] private float jumpImpulse;
 		private float jumpHeight = 3f;
-		private float gravityScale = 5f;
-		private float fallGravityScale = 12f;
+		private float gravityScale = 3f;
+		private float fallGravityScale = 10f;
 
 		[Header("Collision")]
 		[SerializeField] private float distance;
 
 		[Header("Basic")]
 		private float speed = 6.0f;
+		public int health { get; protected set; }
+		protected int maxHealth = 100;
+
+		[Header("Manipulation")]
 		private float attackRange = 1f;
 		private float attackPower = 1f;
 		private float attackInterval = 1f;
 		private float attackTimer = 0f;
 		private AttackType attackType;
-		public int health { get; protected set; }
-		protected int maxHealth = 100;
 
-		[Header("Manipulation")]
-		private float coyoteCounter = 0f;
-		private float coyoteMax = 1f;//TODO:
-		private float jumpPressedWindow = 0.4f;
+		private float slideTimeMax = 1f;
+		private float slideInterval = 1f;
+		private float slideTimer = 0f;
+		private float slideColdDown = 0f;
+
+		[SerializeField] private float coyoteTimer = 0f;
+		private bool coyoteCheck = true;
+		private float coyoteTimeMax = 0.4f;//TODO:
+		[SerializeField] private float jumpPressedWindow;
 		[SerializeField] private float jumpPressedTime = 0f;
 		[SerializeField] private bool pressing = false;
 		public PlayerController()
@@ -54,6 +61,7 @@ namespace GbitProjectControl
 		private void Start()
 		{
 			distance = box.size.y / 2 - box.offset.y + 0.6f;
+			jumpPressedWindow = Mathf.Sqrt(2 * jumpHeight / (-Physics2D.gravity.y * gravityScale));
 		}
 		private void Update()
 		{
@@ -70,11 +78,12 @@ namespace GbitProjectControl
 			{
 				jumpPressedTime += Time.deltaTime;
 			}
-			if (Input.GetButtonDown("Jump") && (!state.jumping || state.coyote))//warn the input lock
+			if (Input.GetButtonDown("Jump") && (state.running || state.coyote))//warn the input lock
 			{
-				rb.gravityScale = gravityScale;
 				pressing = true;
 				jumpPressedTime = 0f;
+				coyoteTimer = 0f;
+				rb.gravityScale = gravityScale;
 				rb.velocity = new Vector2(rb.velocity.x, Mathf.Sqrt(jumpHeight * (-Physics2D.gravity.y * gravityScale) * 2));
 			}
 			if (Input.GetButtonUp("Jump") || jumpPressedTime > jumpPressedWindow)
@@ -83,31 +92,41 @@ namespace GbitProjectControl
 				pressing = false;
 			}
 
-			if (!state.jumping && state.falling)
+			//coyote time
+			if (!state.jumping && state.falling && !state.running)
 			{
-				if(coyoteCounter < coyoteMax && !state.running)
+				if (coyoteTimer < coyoteTimeMax)
 				{
-					state.coyote = true;
+					if (!state.coyote)
+					{
+						state.coyote = true;
+					}
+					coyoteTimer += Time.deltaTime;
 				}
-				else
-				{
-					state.coyote = false;
-				}
-				coyoteCounter += Time.deltaTime;
+				else state.coyote = false;
 			}
+			else state.coyote = false;
 		}
 		private void Attack()
 		{
-			if (Input.GetMouseButton(0) && !state.attacking && attackTimer < attackInterval)
+			if (Input.GetMouseButton(0) && !state.attacking && attackTimer < attackInterval && state.running)
 			{
 				attackTimer += Time.deltaTime;
 				state.attacking = true;
 				attackType = AttackType.light;//TODO:
 			}
-		}
+		}//TODO:
 		private void Slide()
 		{
+			if (Input.GetButtonDown("Slide") && !state.sliding && slideColdDown >= slideInterval && state.running)
+			{
+				slideTimer += Time.deltaTime;
+				state.sliding = true;
 
+			}
+		}
+		private void Dash()
+		{
 		}
 		//state machine
 		private void StateAdjustment()
