@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6279968196083367510}
   m_Layer: 10
   m_Name: Energy
-  m_TagString: Untagged
+  m_TagString: Energy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
