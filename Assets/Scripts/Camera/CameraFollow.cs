@@ -2,17 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraFollow : MonoBehaviour
+namespace GbitProjectCamera
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public class CameraFollow : MonoBehaviour
+	{
+		public GameObject player;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	}
 }

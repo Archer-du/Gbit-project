@@ -25,7 +25,7 @@ namespace GbitProjectState
 			dashing = false;
 			touching = false;
 			hitted = false;
-			coyote = true;
+			coyote = false;
 			death = false;
 		}
 	}
