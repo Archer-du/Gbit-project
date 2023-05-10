@@ -19,9 +19,9 @@ namespace GbitProjectControl
 
 		[Header("Physics")]
 		//[SerializeField] private float jumpImpulse;
-		private float jumpHeight = 3f;
-		private float gravityScale = 5f;
-		private float fallGravityScale = 12f;
+		private float jumpHeight = 4f;
+		private float gravityScale = 3f;
+		private float fallGravityScale = 8f;
 
 		[Header("Collision")]
 		[SerializeField] private float distance;
@@ -60,6 +60,7 @@ namespace GbitProjectControl
 		{
 			rb = GetComponent<Rigidbody2D>();
 			box = GetComponent<BoxCollider2D>();
+			animator = GetComponent<Animator>();
 		}
 		private void Start()
 		{
