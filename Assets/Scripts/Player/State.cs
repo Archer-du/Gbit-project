@@ -31,6 +31,7 @@ namespace GbitProjectState
 			death = false;
 		}
 	}
+}
 
     public class EnemyState
     {
@@ -42,10 +43,10 @@ namespace GbitProjectState
             Dead
         }
 
-        //定义一个私有变量，表示敌人当前的状态
+        //锟斤拷锟斤拷一锟斤拷私锟叫憋拷锟斤拷锟斤拷锟斤拷示锟斤拷锟剿碉拷前锟斤拷状态
         private State currentState;
 
-        //定义一个公共属性，用于获取或设置敌人的状态
+        //锟斤拷锟斤拷一锟斤拷锟斤拷锟斤拷锟斤拷锟皆ｏ拷锟斤拷锟节伙拷取锟斤拷锟斤拷锟矫碉拷锟剿碉拷状态
         public State CurrentState
         {
             get { return currentState; }
