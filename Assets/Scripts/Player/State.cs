@@ -10,6 +10,7 @@ namespace GbitProjectState
 	{
 		public bool running;	//grounded
 		public bool jumping;
+		public bool jumpPressing;
 		public bool falling;
 		public bool attacking;
 		public bool dashing;
@@ -21,6 +22,7 @@ namespace GbitProjectState
 		public PlayerState()
 		{
 			jumping = false;
+			jumpPressing = false;
 			running = true;
 			attacking = false;
 			dashing = false;
@@ -31,8 +33,6 @@ namespace GbitProjectState
 			death = false;
 		}
 	}
-}
-
     public class EnemyState
     {
 
