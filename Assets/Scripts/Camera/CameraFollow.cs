@@ -9,9 +9,11 @@ namespace GbitProjectCamera
 	{
 		public GameObject player;
 
-		private Vector3 offset = new Vector3(2f, 0.5f, -10);
+		private Vector3 offset = new Vector3(2f, 0.5f, -12);
 		private Vector3 targetPos;
 		private float followSpeed = 4f;
+
+		private float upperBound = 2f;
 
 		private void Start()
 		{
@@ -19,7 +21,14 @@ namespace GbitProjectCamera
 		private void Update()
 		{
 			targetPos = player.transform.position;
-			transform.position = Vector3.Lerp(transform.position, targetPos + offset, followSpeed * Time.deltaTime);
+			if(transform.position.y > upperBound)
+			{
+				transform.position = new Vector3(transform.position.x, upperBound, -12);
+			}
+			else
+			{
+				transform.position = Vector3.Lerp(transform.position, targetPos + offset, followSpeed * Time.deltaTime);
+			}
 		}
 	}
 }

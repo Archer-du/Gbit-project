@@ -5,5 +5,8 @@ using GbitProjectControl;
 
 public class PlayerAnimation : PlayerController
 {
-	
+	private void Update()
+	{
+		
+	}
 }
