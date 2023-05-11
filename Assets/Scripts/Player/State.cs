@@ -8,6 +8,7 @@ namespace GbitProjectState
 	[System.Serializable]
 	public class PlayerState
 	{
+		public bool onGround;
 		public bool running;	//grounded
 		public bool jumping;
 		public bool jumpPressing;
@@ -21,6 +22,7 @@ namespace GbitProjectState
 		public bool death;
 		public PlayerState()
 		{
+			onGround = true;
 			jumping = false;
 			jumpPressing = false;
 			running = true;
