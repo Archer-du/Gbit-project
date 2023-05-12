@@ -52,7 +52,7 @@ public class EnemyController : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-        PlayerController controller = other.GetComponent<PlayerController>();//TODO:换成被武器触发
+        PlayerController controller = other.GetComponent<PlayerController>();
         if(controller != null)
 		{
             enemyEnergy -= 1;
@@ -72,7 +72,7 @@ public class EnemyController : MonoBehaviour
 		}
          else if(currentInterval < maxInterval - 5)
 		{
-            //播放射击提示动画
+            //TODO:播放射击提示动画
 		}
         else
 		{
@@ -91,7 +91,7 @@ public class EnemyController : MonoBehaviour
 
     void Dead()
 	{
+        //TODO:播放Boom动画
         Destroy(gameObject);
-        //TODO:爆金币
 	}
 }
