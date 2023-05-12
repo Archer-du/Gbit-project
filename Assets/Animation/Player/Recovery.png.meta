@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 24f08dd3e5c5af945954686c5f925ce9
+guid: 27086b6cb9ecffe40875dc03eb0fe25b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: jumping_0
+      name: Recovery_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3e05a2f171e0bf4429d699401c37ac06
-      internalID: -52842853
+      spriteID: 75a1edd39dd5c8a40aaeedff61770cff
+      internalID: 1777934900
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: jumping_1
+      name: Recovery_1
       rect:
         serializedVersion: 2
         x: 224
@@ -140,14 +140,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6dfc43f5f8f4a6b4e9e726db1e17f295
-      internalID: 1422956870
+      spriteID: 204e35e124fc1aa4ca4adfe71e7b647f
+      internalID: 1219504933
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: jumping_2
+      name: Recovery_2
       rect:
         serializedVersion: 2
         x: 448
@@ -161,8 +161,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e07f88dc91f14f44e94d394560d98ed7
-      internalID: 260914015
+      spriteID: 8c9438a03f799434db2c0988d7964e6f
+      internalID: 1759151303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recovery_3
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 0
+        width: 224
+        height: 208
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a8916e20032b6940bba92c9b02e19e5
+      internalID: -832710354
       vertices: []
       indices: 
       edges: []
@@ -178,9 +199,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      jumping_0: -52842853
-      jumping_1: 1422956870
-      jumping_2: 260914015
+      Recovery_0: 1777934900
+      Recovery_1: 1219504933
+      Recovery_2: 1759151303
+      Recovery_3: -832710354
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

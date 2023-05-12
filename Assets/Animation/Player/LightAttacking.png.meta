@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1eca4092903000b4d978a5acd90706e3
+guid: 9a2dd87d32d1e214a9a99f40998f0d92
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: running_0
+      name: LightAttacking_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e6636a0dbaab524685185cc8ff294d2
-      internalID: 646045776
+      spriteID: 068d61f6aaeb61b41aedb01de5983b91
+      internalID: 1772346073
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: running_1
+      name: LightAttacking_1
       rect:
         serializedVersion: 2
         x: 224
@@ -140,14 +140,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ec671090b685eb443937d25f322220b5
-      internalID: -2002294719
+      spriteID: 942547bdafa3db847a922e019768f962
+      internalID: 586161965
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: running_2
+      name: LightAttacking_2
       rect:
         serializedVersion: 2
         x: 448
@@ -161,14 +161,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: afd763b8cdf46f4438610982064215d9
-      internalID: 720064497
+      spriteID: 54a5fb9709a29284fa74580909e6a7d8
+      internalID: -1616567718
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: running_3
+      name: LightAttacking_3
       rect:
         serializedVersion: 2
         x: 672
@@ -182,14 +182,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 691526666cc193a41821e4445684087e
-      internalID: 457121088
+      spriteID: 0beaa57e7cd86fd40a1ca7e4dbcf6d0e
+      internalID: 853758418
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: running_4
+      name: LightAttacking_4
       rect:
         serializedVersion: 2
         x: 896
@@ -203,14 +203,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a866724f11650c4abb0cbe4875bd3dd
-      internalID: 1529723529
+      spriteID: 6d997a1a1ead70a4d89d9dd969571645
+      internalID: 2012571568
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: running_5
+      name: LightAttacking_5
       rect:
         serializedVersion: 2
         x: 1120
@@ -224,8 +224,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0f4b04a35d2877b43a66f95cf8e4de1a
-      internalID: -506311147
+      spriteID: efbabc24af8875e459a5217ebaf39e1a
+      internalID: 1853878414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightAttacking_6
+      rect:
+        serializedVersion: 2
+        x: 1344
+        y: 0
+        width: 224
+        height: 208
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04b2d3ef478050149958ee4104821428
+      internalID: -1419578919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightAttacking_7
+      rect:
+        serializedVersion: 2
+        x: 1568
+        y: 0
+        width: 224
+        height: 208
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1f3a2e0cd7dece4681e5a208db05458
+      internalID: -1688321754
       vertices: []
       indices: 
       edges: []
@@ -241,12 +283,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      running_0: 646045776
-      running_1: -2002294719
-      running_2: 720064497
-      running_3: 457121088
-      running_4: 1529723529
-      running_5: -506311147
+      LightAttacking_0: 1772346073
+      LightAttacking_1: 586161965
+      LightAttacking_2: -1616567718
+      LightAttacking_3: 853758418
+      LightAttacking_4: 2012571568
+      LightAttacking_5: 1853878414
+      LightAttacking_6: -1419578919
+      LightAttacking_7: -1688321754
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
