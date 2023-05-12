@@ -19,9 +19,9 @@ namespace GbitProjectControl
 
 		[Header("Physics")]
 		//[SerializeField] private float jumpImpulse;
-		private float jumpHeight = 3f;
-		private float gravityScale = 5f;
-		private float fallGravityScale = 12f;
+		private float jumpHeight = 4f;
+		private float gravityScale = 3f;
+		private float fallGravityScale = 8f;
 
 		[Header("Collision")]
 		[SerializeField] private float distance;
@@ -31,19 +31,20 @@ namespace GbitProjectControl
 		public int health { get; protected set; }
 		protected int maxHealth = 100;
 
-		[Header("Manipulation")]
-		private float attackRange = 1f;
-		private float attackPower = 1f;
-		private float attackInterval = 1f;
-		private float attackTimer = 0f;
+		[Header("Attack")]
+		[SerializeField] private float attackTimer = 0f;
+		[SerializeField] private float attackColdDown = 0f;
+		[HideInInspector] public float attackPower = 1f;
 		private AttackType attackType;
+		private float attackTimeMax = 1.16f;
+		private float attackInterval = 1f;
 
-		private float slideTimeMax = 1f;
+		[Header("Slide")]
 		[SerializeField] private float slideTimer = 0f;
 		[SerializeField] private float slideColdDown = 0f;
+		private float slideTimeMax = 1f;
 		private float slideBoxSize;
 		private float slideBoxOffset;
-
 		private float originBoxSize;
 		private float originBoxOffset;
 
@@ -52,6 +53,7 @@ namespace GbitProjectControl
 		private float coyoteTimeMax = 0.2f;
 		[SerializeField] private float jumpPressedTime = 0f;
 		[SerializeField] private float jumpPressedWindow;
+
 		public PlayerController()
 		{
 			state = new PlayerState();
@@ -60,10 +62,11 @@ namespace GbitProjectControl
 		{
 			rb = GetComponent<Rigidbody2D>();
 			box = GetComponent<BoxCollider2D>();
+			animator = GetComponent<Animator>();
 		}
 		private void Start()
 		{
-			distance = box.size.y / 2 - box.offset.y + 0.6f;
+			distance = box.size.y / 2 - box.offset.y + 0.3f;
 			slideBoxSize = box.size.y / 2;
 			slideBoxOffset = box.offset.y / 2;
 			originBoxSize = box.size.y;
@@ -86,7 +89,7 @@ namespace GbitProjectControl
 			{
 				jumpPressedTime += Time.deltaTime;
 			}
-			if (Input.GetButtonDown("Jump") && (state.running || state.coyote))//warn the input lock
+			if (Input.GetButtonDown("Jump") && !state.attacking && (state.running || state.coyote))//warn the input lock
 			{
 				state.jumpPressing = true;
 				jumpPressedTime = 0f;
@@ -117,11 +120,31 @@ namespace GbitProjectControl
 		}
 		private void Attack()
 		{
-			if (Input.GetMouseButton(0) && !state.attacking && attackTimer < attackInterval && state.running)
+			if (state.attacking)
 			{
+				if(attackTimer < attackTimeMax)
+				{
+					//TODO:
+				}
+				else
+				{
+					state.attacking = false;
+				}
 				attackTimer += Time.deltaTime;
-				state.attacking = true;
-				attackType = AttackType.light;//TODO:
+			}
+			else
+			{
+				if(attackColdDown > 0)
+				{
+					attackColdDown -= Time.deltaTime;
+				}
+				else if (Input.GetMouseButton(0) && state.running)
+				{
+					attackTimer = 0f;
+					attackColdDown = 1f;
+					state.attacking = true;
+					attackType = AttackType.light;//TODO:
+				}
 			}
 		}//TODO:
 		private void Slide()
@@ -141,13 +164,13 @@ namespace GbitProjectControl
 				}
 				slideTimer += Time.deltaTime;
 			}
-			else
+			else //not sliding
 			{
 				if(slideColdDown > 0)
 				{
 					slideColdDown -= Time.deltaTime;
 				}
-				else if (Input.GetButtonDown("Slide") && !state.sliding && state.running)
+				else if (Input.GetButtonDown("Slide") && state.running)
 				{
 					slideTimer = 0f;
 					slideColdDown = 2f;
@@ -162,11 +185,12 @@ namespace GbitProjectControl
 		private void StateAdjustment()
 		{
 			//state adjustment
-			if(Physics2D.Raycast(transform.position, Vector2.down, distance, groundLayer))
+			state.onGround = Physics2D.Raycast(transform.position, Vector2.down, distance, groundLayer);
+			if (state.onGround)
 			{
-				state.running = true;
 				state.jumping = false;
 				state.falling = false;
+				state.running = true;
 			}
 			else if (rb.velocity.y > 0.05f)
 			{
@@ -179,8 +203,13 @@ namespace GbitProjectControl
 				state.running = false;
 				state.falling = true;
 			}
-		}
 
+			//animation adjustment
+			animator.SetBool("running", state.running);
+			animator.SetBool("jumping", state.jumping);
+			animator.SetBool("falling", state.falling);
+			animator.SetBool("attacking", state.attacking);
+		}
 		public enum AttackType
 		{
 			light,
