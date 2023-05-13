@@ -38,12 +38,10 @@ namespace GbitProjectControl
 		//private bool coyoteCheck = true;
 
 		[Header("Attack")]
-		[SerializeField] private float attackTimer = 0f;
-		[SerializeField] private float attackColdDown = 0f;
+		[SerializeField] private bool comboEnable;
+		[SerializeField] private int comboStep;
 		[HideInInspector] public float attackPower = 1f;
-		private float attackTimeMax = 1.16f;
 		private float attackInterval = 1f;
-		private AttackType attackType;
 
 		[Header("Slide")]
 		[SerializeField] private float slideTimer;
@@ -167,33 +165,56 @@ namespace GbitProjectControl
 
 		private void Attack()
 		{
-			if (state.attacking)
+			if (Input.GetKeyDown(KeyCode.J))
 			{
-				if(attackTimer < attackTimeMax)
+				if (state.running)
 				{
-					//TODO:
-				}
-				else
-				{
-					state.attacking = false;
-				}
-				attackTimer += Time.deltaTime;
-			}
-			else
-			{
-				if(attackColdDown > 0)
-				{
-					attackColdDown -= Time.deltaTime;
-				}
-				else if (Input.GetMouseButton(0) && state.running)
-				{
-					attackTimer = 0f;
-					attackColdDown = attackInterval;
 					state.attacking = true;
-					attackType = AttackType.light;//TODO:
+					state.running = false;
+					state.attackType = PlayerState.AttackType.light1;
+					animator.SetTrigger("lightAttack1");
+				}
+				if(state.attacking && state.attackType == PlayerState.AttackType.light1 && comboEnable)
+				{
+					state.attackType = PlayerState.AttackType.light2;
+				}//combo
+			}
+			if(state.running)
+			{
+				if (Input.GetKeyDown(KeyCode.K))
+				{
+					state.attacking = true;
+					state.running = false;
+					state.attackType = PlayerState.AttackType.heavy;
+					animator.SetTrigger("heavyAttack");
 				}
 			}
-		}//TODO:
+		}
+		public void ComboBegin()
+		{
+			comboEnable = true;
+		}
+		public void ComboOver()
+		{
+			if(state.attackType == PlayerState.AttackType.light2)
+			{
+				animator.SetTrigger("lightAttack2");
+			}
+			comboEnable = false;
+		}
+		public void AttackOver()
+		{
+			if(state.attackType == PlayerState.AttackType.heavy)
+			{
+				state.recovering = true;
+			}
+			state.attacking = false;
+		}
+		public void RecoveryOver()
+		{
+			state.recovering = false;
+		}
+
 		private void Slide()
 		{
 			state.ceiled = Physics2D.Raycast(transform.position, Vector2.up, upperDistance, groundLayer);
@@ -245,13 +266,9 @@ namespace GbitProjectControl
 			animator.SetBool("running", state.running);
 			animator.SetBool("jumping", state.jumping);
 			animator.SetBool("falling", state.falling);
-			animator.SetBool("attacking", state.attacking);
 			animator.SetBool("sliding", state.sliding);
-		}
-		public enum AttackType
-		{
-			light,
-			heavy
+			animator.SetBool("attacking", state.attacking);
+			animator.SetBool("recovering", state.recovering);
 		}
 
 		//debug functions

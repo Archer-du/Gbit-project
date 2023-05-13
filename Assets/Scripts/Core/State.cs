@@ -22,6 +22,13 @@ namespace GbitProjectState
 		public bool hitted;
 		public bool coyote;		//coyote time range check
 		public bool death;
+		public AttackType attackType;
+		public enum AttackType
+		{
+			light1,
+			light2,
+			heavy
+		}
 		public PlayerState()
 		{
 			onGround = true;
