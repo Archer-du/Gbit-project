@@ -95,8 +95,8 @@ namespace GbitProjectControl
 			originBoxSize = new Vector2(box.size.x, box.size.y);
 			originBoxOffset = box.offset.y;
 			//collision
-			lowerDistance = originBoxSize.y / 2f - originBoxOffset + 0.05f;
-			upperDistance = originBoxSize.y / 2f + originBoxOffset + 0.05f;
+			lowerDistance = originBoxSize.y / 2f - originBoxOffset + 0.02f;
+			upperDistance = originBoxSize.y / 2f + originBoxOffset + 0.02f;
 		}
 		private void Update()
 		{
@@ -115,16 +115,21 @@ namespace GbitProjectControl
 			onGroundCheckFore = Physics2D.Raycast(new Vector2(transform.position.x + 1, transform.position.y), Vector2.down, lowerDistance, groundLayer);
 			state.onGround = onGroundCheckFore || onGroundCheckBack;
 
-			if (state.onGround && !state.attacking && !state.sliding && !state.dashing)
+			if (rb.velocity.y < -0.01f)
+			{
+				state.falling = true;
+				state.running = false;
+			}
+			if (rb.velocity.y > 0.01f)//block the onGround check
+			{
+				state.jumping = true;
+				state.running = false;
+			}
+			else if (state.onGround && !state.attacking && !state.sliding && !state.dashing)
 			{
 				state.jumping = false;
 				state.falling = false;
 				state.running = true;
-			}
-			if(rb.velocity.y < -0.01f)
-			{
-				state.falling = true;
-				state.running = false;
 			}
 			if (state.jumpPressing)
 			{
@@ -132,10 +137,7 @@ namespace GbitProjectControl
 			}
 			if (Input.GetButtonDown("Jump") && !state.attacking && !state.sliding && (state.running || state.coyote))
 			{
-				state.jumping = true;//set jumping state
-				state.running = false;
 				state.jumpPressing = true;
-
 				jumpPressedTime = 0f;
 				coyoteTimer = 0f;
 				rb.gravityScale = upwardGravityScale;
@@ -179,9 +181,9 @@ namespace GbitProjectControl
 					state.attackType = PlayerState.AttackType.light2;
 				}//combo
 			}
-			if(state.running)
+			if (Input.GetKeyDown(KeyCode.K))
 			{
-				if (Input.GetKeyDown(KeyCode.K))
+				if (state.running)
 				{
 					state.attacking = true;
 					state.running = false;
@@ -204,15 +206,11 @@ namespace GbitProjectControl
 		}
 		public void AttackOver()
 		{
-			if(state.attackType == PlayerState.AttackType.heavy)
-			{
-				state.recovering = true;
-			}
 			state.attacking = false;
 		}
 		public void RecoveryOver()
 		{
-			state.recovering = false;
+			animator.SetTrigger("run");
 		}
 
 		private void Slide()
@@ -268,7 +266,6 @@ namespace GbitProjectControl
 			animator.SetBool("falling", state.falling);
 			animator.SetBool("sliding", state.sliding);
 			animator.SetBool("attacking", state.attacking);
-			animator.SetBool("recovering", state.recovering);
 		}
 
 		//debug functions
