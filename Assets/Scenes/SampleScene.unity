@@ -335,7 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c519251e6f5af049a3bed4dcaa1fa29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 0}
+  playerTransform: {fileID: 6728937368842876646}
   prefabList:
   - {fileID: 3076812626322249484, guid: 545f4a301d62be047af644f5043420bc, type: 3}
   - {fileID: 5209250412309039448, guid: 88ba857ed770f03498373c963d6f1fb2, type: 3}
@@ -507,6 +507,22 @@ PrefabInstance:
     - target: {fileID: 6728937369562067944, guid: b5772a3044cba164abf87f127f1fee16, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6728937369562067947, guid: b5772a3044cba164abf87f127f1fee16, type: 3}
+      propertyPath: m_Size.x
+      value: 1.1235815
+      objectReference: {fileID: 0}
+    - target: {fileID: 6728937369562067947, guid: b5772a3044cba164abf87f127f1fee16, type: 3}
+      propertyPath: m_Size.y
+      value: 2.5924547
+      objectReference: {fileID: 0}
+    - target: {fileID: 6728937369562067947, guid: b5772a3044cba164abf87f127f1fee16, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.5162875
+      objectReference: {fileID: 0}
+    - target: {fileID: 6728937369562067947, guid: b5772a3044cba164abf87f127f1fee16, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.22044075
       objectReference: {fileID: 0}
     - target: {fileID: 6728937369562067951, guid: b5772a3044cba164abf87f127f1fee16, type: 3}
       propertyPath: m_Name

@@ -1,9 +1,11 @@
 //author: Archer
+//basic movements of the character
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GbitProjectState;
 using Unity.VisualScripting;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 namespace GbitProjectControl
 {
@@ -15,44 +17,49 @@ namespace GbitProjectControl
 		public Animator animator;
 		public LayerMask groundLayer;
 
-		public PlayerState state;//very important
-
-		[Header("Physics")]
-		//[SerializeField] private float jumpImpulse;
-		private float jumpHeight = 4f;
-		private float gravityScale = 3f;
-		private float fallGravityScale = 8f;
-
-		[Header("Collision")]
-		[SerializeField] private float distance;
+		[Header("State")]
+		public PlayerState state;
 
 		[Header("Basic")]
-		private float speed = 6.0f;
-		public int health { get; protected set; }
+		private float speed;
+		private bool onGroundCheckFore;
+		private bool onGroundCheckBack;
+		[SerializeField] public int health { get; protected set; }
 		protected int maxHealth = 100;
+
+		[Header("Jump")]
+		[SerializeField] private float jumpPressedTime;
+		[SerializeField] private float jumpPressedWindow;
+		[SerializeField] private float coyoteTimer;
+		private float coyoteTimeMax;
+		private float jumpHeight;
+		private float upwardGravityScale;
+		private float downwardGravityScale;
+		//private bool coyoteCheck = true;
 
 		[Header("Attack")]
 		[SerializeField] private float attackTimer = 0f;
 		[SerializeField] private float attackColdDown = 0f;
 		[HideInInspector] public float attackPower = 1f;
-		private AttackType attackType;
 		private float attackTimeMax = 1.16f;
 		private float attackInterval = 1f;
+		private AttackType attackType;
 
 		[Header("Slide")]
-		[SerializeField] private float slideTimer = 0f;
-		[SerializeField] private float slideColdDown = 0f;
-		private float slideTimeMax = 1f;
-		private float slideBoxSize;
+		[SerializeField] private float slideTimer;
+		[SerializeField] private float slideColdDown;
+		private float slideTimeMax;
+		private float slideInterval;
+		private Vector2 slideBoxSize;
 		private float slideBoxOffset;
-		private float originBoxSize;
+		private Vector2 originBoxSize;
 		private float originBoxOffset;
+		private float slideScaleX;
+		private float slideScaleY;
 
-		[SerializeField] private float coyoteTimer = 0f;
-		//private bool coyoteCheck = true;
-		private float coyoteTimeMax = 0.2f;
-		[SerializeField] private float jumpPressedTime = 0f;
-		[SerializeField] private float jumpPressedWindow;
+		[Header("Collision")]
+		[SerializeField] private float lowerDistance;
+		[SerializeField] private float upperDistance;
 
 		public PlayerController()
 		{
@@ -66,12 +73,32 @@ namespace GbitProjectControl
 		}
 		private void Start()
 		{
-			distance = box.size.y / 2 - box.offset.y + 0.3f;
-			slideBoxSize = box.size.y / 2;
-			slideBoxOffset = box.offset.y / 2;
-			originBoxSize = box.size.y;
+			// status initialize:
+			//Basic
+			speed = 6.0f;
+			health = maxHealth;
+			//Jump
+			jumpPressedTime = 0f;
+			coyoteTimer = 0f;
+			coyoteTimeMax = 0.2f;
+			jumpHeight = 4.5f;
+			upwardGravityScale = 3f;
+			downwardGravityScale = 8f;
+			jumpPressedWindow = Mathf.Sqrt(2 * jumpHeight / (-Physics2D.gravity.y * upwardGravityScale));
+			//slide
+			slideTimer = 0f;
+			slideColdDown = 0f;
+			slideInterval = 1.2f;
+			slideTimeMax = 0.7f;
+			slideScaleY = 0.4f;
+			slideScaleX = 2.5f;
+			slideBoxSize = new Vector2(slideScaleX * box.size.x, slideScaleY * box.size.y);
+			slideBoxOffset = box.offset.y - slideBoxSize.y * (1 - slideScaleY / 2);
+			originBoxSize = new Vector2(box.size.x, box.size.y);
 			originBoxOffset = box.offset.y;
-			jumpPressedWindow = Mathf.Sqrt(2 * jumpHeight / (-Physics2D.gravity.y * gravityScale));
+			//collision
+			lowerDistance = originBoxSize.y / 2f - originBoxOffset + 0.2f;
+			upperDistance = originBoxSize.y / 2f + originBoxOffset + 0.1f;
 		}
 		private void Update()
 		{
@@ -83,9 +110,13 @@ namespace GbitProjectControl
 			Attack();
 			Slide();
 		}
+
 		private void Jump()
 		{
-			state.onGround = Physics2D.Raycast(transform.position, Vector2.down, distance, groundLayer);
+			onGroundCheckBack = Physics2D.Raycast(transform.position, Vector2.down, lowerDistance, groundLayer);
+			onGroundCheckFore = Physics2D.Raycast(new Vector2(transform.position.x + 1, transform.position.y), Vector2.down, lowerDistance, groundLayer);
+			state.onGround = onGroundCheckFore || onGroundCheckBack;
+
 			if (state.falling && state.onGround)
 			{
 				state.jumping = false;
@@ -101,20 +132,20 @@ namespace GbitProjectControl
 			{
 				jumpPressedTime += Time.deltaTime;
 			}
-			if (Input.GetButtonDown("Jump") && !state.attacking && (state.running || state.coyote))//warn the input lock
+			if (Input.GetButtonDown("Jump") && !state.attacking && !state.sliding && (state.running || state.coyote))
 			{
-				state.jumping = true;
+				state.jumping = true;//set jumping state
 				state.running = false;
 				state.jumpPressing = true;
 
 				jumpPressedTime = 0f;
 				coyoteTimer = 0f;
-				rb.gravityScale = gravityScale;
-				rb.velocity = new Vector2(rb.velocity.x, Mathf.Sqrt(jumpHeight * (-Physics2D.gravity.y * gravityScale) * 2));
+				rb.gravityScale = upwardGravityScale;
+				rb.velocity = new Vector2(rb.velocity.x, Mathf.Sqrt(jumpHeight * (-Physics2D.gravity.y * upwardGravityScale) * 2));
 			}
 			if (Input.GetButtonUp("Jump") || jumpPressedTime > jumpPressedWindow)
 			{
-				rb.gravityScale = fallGravityScale;
+				rb.gravityScale = downwardGravityScale;
 				state.jumpPressing = false;
 			}
 
@@ -133,6 +164,7 @@ namespace GbitProjectControl
 			}
 			else state.coyote = false;
 		}
+
 		private void Attack()
 		{
 			switch (attackType)
@@ -170,22 +202,31 @@ namespace GbitProjectControl
 		}//TODO:
 		private void Slide()
 		{
-			if(state.sliding)
+			state.ceiled = Physics2D.Raycast(transform.position, Vector2.up, upperDistance, groundLayer);
+
+			if (state.sliding)
 			{
 				if (slideTimer < slideTimeMax)
 				{
-					box.size = new Vector2(box.size.x, slideBoxSize);
+					box.size = slideBoxSize;
 					box.offset = new Vector2(box.offset.x, slideBoxOffset);
 				}
-				else
+				else if (!state.ceiled)//block
 				{
-					box.size = new Vector2(box.size.x, originBoxSize);
+					box.size = originBoxSize;
+					box.offset = new Vector2(box.offset.x, originBoxOffset);
+					state.sliding = false;
+				}
+
+				if (state.falling)//interrupt
+				{
+					box.size = originBoxSize;
 					box.offset = new Vector2(box.offset.x, originBoxOffset);
 					state.sliding = false;
 				}
 				slideTimer += Time.deltaTime;
 			}
-			else //not sliding
+			else //if not sliding
 			{
 				if(slideColdDown > 0)
 				{
@@ -194,7 +235,7 @@ namespace GbitProjectControl
 				else if (Input.GetButtonDown("Slide") && state.running)
 				{
 					slideTimer = 0f;
-					slideColdDown = 2f;
+					slideColdDown = slideInterval;
 					state.sliding = true;
 				}
 			}
@@ -222,7 +263,9 @@ namespace GbitProjectControl
 		private void OnDrawGizmos()
 		{
 			Gizmos.color = Color.blue;
-			Gizmos.DrawLine(transform.position, transform.position + Vector3.down * distance);
+			Gizmos.DrawLine(transform.position, transform.position + Vector3.down * lowerDistance);
+			Gizmos.DrawLine(new Vector2(transform.position.x + 1, transform.position.y), new Vector2(transform.position.x + 1, transform.position.y) + Vector2.down * lowerDistance);
+			Gizmos.DrawLine(transform.position, transform.position + Vector3.up * upperDistance);
 		}
 	}
 }
