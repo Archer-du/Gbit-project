@@ -7,7 +7,7 @@ public class InfiniteBackGround : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     [SerializeField] private GameObject[] backgroundList;
     [SerializeField] private int maxBackGround = 5;
-    [SerializeField] private float spawnX;
+    [SerializeField] private float spawn_X_BG;
     [SerializeField] private float backgroundLength = 6.4f;
 
     private Queue<GameObject> activeBackGround;
@@ -17,7 +17,7 @@ public class InfiniteBackGround : MonoBehaviour
     {
         usedBackGroundIndices = new Queue<int>();
         activeBackGround = new Queue<GameObject>();
-        spawnX = -2 * backgroundLength;
+        spawn_X_BG = -2 * backgroundLength;
         for (int i = 0; i < maxBackGround; i++)
         {
             SpawnBackGround();
@@ -42,8 +42,8 @@ public class InfiniteBackGround : MonoBehaviour
         }
         GameObject prefab = Instantiate(backgroundList[BackGroundIndex]);
         prefab.transform.SetParent(transform);
-        prefab.transform.position = Vector3.right * spawnX + Vector3.up * 4.5f;
-        spawnX += backgroundLength;
+        prefab.transform.position = Vector3.right * spawn_X_BG + Vector3.up * 4.5f;
+        spawn_X_BG += backgroundLength;
         usedBackGroundIndices.Enqueue(BackGroundIndex);
         while (usedBackGroundIndices.Count > 1)
         {
