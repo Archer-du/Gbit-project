@@ -210,6 +210,7 @@ namespace GbitProjectControl
 			animator.SetBool("jumping", state.jumping);
 			animator.SetBool("falling", state.falling);
 			animator.SetBool("attacking", state.attacking);
+			animator.SetBool("sliding", state.sliding);
 		}
 		public enum AttackType
 		{
