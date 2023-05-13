@@ -6,10 +6,9 @@ public class InfiniteBackGround : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform;
     [SerializeField] private GameObject[] backgroundList;
-    [SerializeField] private int maxBackGround = 5;
-    [SerializeField] private float spawn_X_BG;
-    [SerializeField] private float backgroundLength = 6.4f;
-
+    private int maxBackGround = 4;
+    private float spawn_X_BG;
+    private float backgroundLength = 16;
     private Queue<GameObject> activeBackGround;
     private Queue<int> usedBackGroundIndices;
 
@@ -57,5 +56,4 @@ public class InfiniteBackGround : MonoBehaviour
         usedBackGroundIndices.Dequeue();
         Destroy(activeBackGround.Dequeue());
     }
-
 }

@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 4897668580429566130}
   - component: {fileID: 407060710773351406}
   - component: {fileID: 7604691779137226547}
+  - component: {fileID: 4676422147969051404}
   m_Layer: 0
   m_Name: Static-Boom
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 82b5fb67911098d47b55952376a25f4b, type: 3}
+  m_Sprite: {fileID: -392108244, guid: f8377225fac0bdf41b44037988efeb5d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -118,9 +119,30 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.2010796, y: -0.21043217}
+  m_Offset: {x: -0.011399388, y: -0.011515498}
   serializedVersion: 2
-  m_Radius: 0.913309
+  m_Radius: 0.89974654
+--- !u!95 &4676422147969051404
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2067854221586953366}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0d9d52ce45d1d734d9cb9361f37820e8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8000485128669510194
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,9 +242,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00000023841858, y: 0.00000047683716}
+  m_Offset: {x: -0.09438673, y: 0.11066232}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.52029216
 --- !u!114 &7134187263716656429
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ public class StaticBoom : Enemy
     {
         enemyState = new EnemyState();
         enemyEnergy = 1;
-        player = GameObject.Find("Player");
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -36,22 +36,22 @@ public class StaticBoom : Enemy
             case EnemyState.State.Alert:
                 Alert();
                 break;
+            case EnemyState.State.Dead:
+                Dead();
+                break;
             default:
                 Debug.Log("Error");
                 break;
         }
     }
     
-    public void OnTrigger(PlayerController controller)
+    public void OnTrigger()
 	{
-        if (controller != null && enemyState.CurrentState == EnemyState.State.Idle)//TODO:attacked
-        {
-            Damage(1);
-        }
-        else if (controller != null && enemyState.CurrentState == EnemyState.State.Alert)
-        {
-            //TODO:destroy itself and damage player or Boss
-        }
+        if(enemyEnergy < 1 && enemyState.CurrentState == EnemyState.State.Alert)
+		{
+            //TODO:damage
+            enemyState.CurrentState = EnemyState.State.Dead;
+		}
     }
 
     void Idle()
@@ -61,8 +61,12 @@ public class StaticBoom : Enemy
 
     void Alert()
     {
-        //TODO:anim
-        //TODO:
-        Debug.Log("WARING!");
+        animator.SetBool("Alert", true);
     }
+
+    void Dead()
+	{
+        //TODO:anim
+        Destroy(gameObject);
+	}
 }

@@ -4,11 +4,14 @@ using UnityEngine;
 
 using EnemyController;
 
-public class StaticBoomCircle : StaticBoom
+public class StaticBoomCircle : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other)
     {
-        PlayerController controller = other.GetComponent<PlayerController>();
-        GetComponent<StaticBoom>().OnTrigger(controller);
+        if(other.CompareTag("Player"))
+        {
+            GetComponentInParent<StaticBoom>().OnTrigger();
+        }
+        //TODO:boss
     }
 }

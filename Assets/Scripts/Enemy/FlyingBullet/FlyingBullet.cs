@@ -79,10 +79,6 @@ public class FlyingBullet : Enemy
 		{
             currentInterval += Time.deltaTime * 10;
 		}
-  //       else if(currentInterval < (maxInterval * 0.5f))
-		//{
-  //          //TODO:播放射击提示动画
-		//}
         else
 		{
             Shoot();
@@ -96,6 +92,7 @@ public class FlyingBullet : Enemy
         if (bullet != null)
         {
             bullet.gameObject.SetActive(true);
+            bullet.transform.SetParent(transform);
             bullet.transform.position = transform.position + Vector3.up * 0.5f;
             bullet.direction = (player.transform.position - transform.position);
             bullet.speed = 2;

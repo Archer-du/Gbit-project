@@ -6,10 +6,9 @@ public class InfiniteTerrain : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform;
     [SerializeField] private GameObject[] prefabList;
-    [SerializeField] private int maxTerrains = 3;
-    [SerializeField] private float spawn_X_Tr = 0;
-    [SerializeField] private float terrainLength = 20f;
-
+    private int maxTerrains = 3;
+    private float spawn_X_Tr = 0;
+    private float terrainLength = 20f;
     private Queue<GameObject> activeTerrains;
     private Queue<int> usedTerrainIndices;
 
@@ -25,7 +24,7 @@ public class InfiniteTerrain : MonoBehaviour
 
     private void Update()
     {
-        if (playerTransform.position.x > (activeTerrains.Peek().transform.position.x + terrainLength))
+        if (playerTransform.position.x > (activeTerrains.Peek().transform.position.x + terrainLength * 1.5))
         {
             DeleteTerrain();
             SpawnTerrain();
