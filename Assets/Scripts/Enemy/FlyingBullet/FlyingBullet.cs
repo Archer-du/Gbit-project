@@ -1,38 +1,45 @@
 using GbitProjectControl;
 using GbitProjectState;
 using UnityEngine;
+using EnemyController;
 
-public class EnemyController : MonoBehaviour
+public class FlyingBullet : Enemy
 {
-    private EnemyState enemyState;
-    public int enemyEnergy;
-    public float attackScale;
-    public float currentInterval;
-    public float maxInterval;//攻击间隔
-    public GameObject player;
     [SerializeField] public GameObject bulletPrefab;
-
     void Start()
     {
         enemyState = new EnemyState();
         enemyEnergy = 1;
-        attackScale = 7;
+        attackScale = 10;
         maxInterval = 20;
         currentInterval = 0;
         player = GameObject.Find("Player");
     }
 
-    void Update()
-    {
-        if(enemyEnergy < 1 && enemyState.CurrentState != EnemyState.State.Dead )
-		{
+	void Update()
+	{
+        StateJudge();
+        StateUpdate();
+	}
+
+	void StateJudge()
+	{
+        if (enemyEnergy < 1 && enemyState.CurrentState != EnemyState.State.Dead)
+        {
             enemyState.CurrentState = EnemyState.State.Dead;
-		}
-        else if(Vector2.Distance(transform.position, player.transform.position) < attackScale)
-		{
+        }
+        else if (Vector2.Distance(transform.position, player.transform.position) < attackScale)
+        {
             enemyState.CurrentState = EnemyState.State.Attack;
+        }
+        else if(Vector2.Distance(transform.position, player.transform.position) > attackScale)
+		{
+            enemyState.CurrentState = EnemyState.State.Idle;
 		}
-        
+    }
+
+    public void StateUpdate()
+    {
         switch (enemyState.CurrentState)
         {
             case EnemyState.State.Idle:
@@ -46,16 +53,16 @@ public class EnemyController : MonoBehaviour
                 break;
             default:
                 Debug.Log("Error");
-                break;
+                break;  
         }
     }
 
-	private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
 	{
         PlayerController controller = other.GetComponent<PlayerController>();
         if(controller != null)
 		{
-            enemyEnergy -= 1;
+            Damage(1);
 		}
     }
     
@@ -70,7 +77,7 @@ public class EnemyController : MonoBehaviour
 		{
             currentInterval += Time.deltaTime * 10;
 		}
-         else if(currentInterval < maxInterval - 5)
+         else if(currentInterval < (maxInterval * 0.5f))
 		{
             //TODO:播放射击提示动画
 		}
@@ -84,9 +91,9 @@ public class EnemyController : MonoBehaviour
     void Shoot()
 	{
         GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
-        BulletTrigger trigger = bullet.GetComponent<BulletTrigger>();
-        trigger.speed = 3;
-        trigger.direction = (player.transform.position - transform.position);
+        Bullet Bullet = bullet.GetComponent<Bullet>();
+        Bullet.speed = 3;
+        Bullet.direction = (player.transform.position - transform.position);
     }
 
     void Dead()
@@ -94,4 +101,5 @@ public class EnemyController : MonoBehaviour
         //TODO:播放Boom动画
         Destroy(gameObject);
 	}
+
 }

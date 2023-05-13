@@ -53,13 +53,12 @@ namespace GbitProjectState
         {
             Idle,
             Attack,
+			Alert,
             Dead
         }
 
-        //����һ��˽�б�������ʾ���˵�ǰ��״̬
         private State currentState;
 
-        //����һ���������ԣ����ڻ�ȡ�����õ��˵�״̬
         public State CurrentState
         {
             get { return currentState; }
