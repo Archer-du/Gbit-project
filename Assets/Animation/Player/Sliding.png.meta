@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1eca4092903000b4d978a5acd90706e3
+guid: 204a9380f1a5f8940b0bd1f1a01541b5
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: running_0
+      name: Sliding_0
       rect:
         serializedVersion: 2
         x: 0
@@ -113,20 +113,20 @@ TextureImporter:
         width: 224
         height: 208
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e6636a0dbaab524685185cc8ff294d2
-      internalID: 646045776
+      spriteID: acdf0311bf1a1694ab261a1740e31bb7
+      internalID: -181583785
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: running_1
+      name: Sliding_1
       rect:
         serializedVersion: 2
         x: 224
@@ -134,20 +134,20 @@ TextureImporter:
         width: 224
         height: 208
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ec671090b685eb443937d25f322220b5
-      internalID: -2002294719
+      spriteID: ed7a8a36f4548f44abc25a84c0bba1bb
+      internalID: 1003024015
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: running_2
+      name: Sliding_2
       rect:
         serializedVersion: 2
         x: 448
@@ -155,77 +155,14 @@ TextureImporter:
         width: 224
         height: 208
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: afd763b8cdf46f4438610982064215d9
-      internalID: 720064497
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: running_3
-      rect:
-        serializedVersion: 2
-        x: 672
-        y: 0
-        width: 224
-        height: 208
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 691526666cc193a41821e4445684087e
-      internalID: 457121088
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: running_4
-      rect:
-        serializedVersion: 2
-        x: 896
-        y: 0
-        width: 224
-        height: 208
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4a866724f11650c4abb0cbe4875bd3dd
-      internalID: 1529723529
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: running_5
-      rect:
-        serializedVersion: 2
-        x: 1120
-        y: 0
-        width: 224
-        height: 208
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0f4b04a35d2877b43a66f95cf8e4de1a
-      internalID: -506311147
+      spriteID: a732f2d21a877db409fbcf64cf205457
+      internalID: 846785863
       vertices: []
       indices: 
       edges: []
@@ -241,12 +178,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      running_0: 646045776
-      running_1: -2002294719
-      running_2: 720064497
-      running_3: 457121088
-      running_4: 1529723529
-      running_5: -506311147
+      Sliding_0: -181583785
+      Sliding_1: 1003024015
+      Sliding_2: 846785863
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -78,20 +78,35 @@ namespace GbitProjectControl
 			float x = Input.GetAxis("Horizontal");//for testing
 			transform.Translate(Vector2.right * Time.deltaTime * speed * x);
 
-			StateAdjustment();
+			AnimationState();
 			Jump();
 			Attack();
 			Slide();
 		}
 		private void Jump()
 		{
+			state.onGround = Physics2D.Raycast(transform.position, Vector2.down, distance, groundLayer);
+			if (state.falling && state.onGround)
+			{
+				state.jumping = false;
+				state.falling = false;
+				state.running = true;
+			}
+			if(rb.velocity.y < -0.01f)
+			{
+				state.falling = true;
+				state.running = false;
+			}
 			if (state.jumpPressing)
 			{
 				jumpPressedTime += Time.deltaTime;
 			}
 			if (Input.GetButtonDown("Jump") && !state.attacking && (state.running || state.coyote))//warn the input lock
 			{
+				state.jumping = true;
+				state.running = false;
 				state.jumpPressing = true;
+
 				jumpPressedTime = 0f;
 				coyoteTimer = 0f;
 				rb.gravityScale = gravityScale;
@@ -120,6 +135,12 @@ namespace GbitProjectControl
 		}
 		private void Attack()
 		{
+			switch (attackType)
+			{
+				case AttackType.light:
+				case AttackType.heavy:
+				default: break;
+			}
 			if (state.attacking)
 			{
 				if(attackTimer < attackTimeMax)
@@ -182,33 +203,14 @@ namespace GbitProjectControl
 		{
 		}
 		//state machine
-		private void StateAdjustment()
+		private void AnimationState()
 		{
-			//state adjustment
-			state.onGround = Physics2D.Raycast(transform.position, Vector2.down, distance, groundLayer);
-			if (state.onGround)
-			{
-				state.jumping = false;
-				state.falling = false;
-				state.running = true;
-			}
-			else if (rb.velocity.y > 0.05f)
-			{
-				state.running = false;
-				state.jumping = true;
-				state.falling = false;
-			}
-			else if (rb.velocity.y < -0.05f)
-			{
-				state.running = false;
-				state.falling = true;
-			}
-
 			//animation adjustment
 			animator.SetBool("running", state.running);
 			animator.SetBool("jumping", state.jumping);
 			animator.SetBool("falling", state.falling);
 			animator.SetBool("attacking", state.attacking);
+			animator.SetBool("sliding", state.sliding);
 		}
 		public enum AttackType
 		{

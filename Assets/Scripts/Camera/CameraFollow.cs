@@ -13,7 +13,7 @@ namespace GbitProjectCamera
 		private Vector3 targetPos;
 		private float followSpeed = 4f;
 
-		private float upperBound = 2f;
+		private float upperBound = 10f;
 
 		private void Start()
 		{
