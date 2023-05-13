@@ -2,29 +2,34 @@ using GbitProjectControl;
 using GbitProjectState;
 using UnityEngine;
 using EnemyController;
+
 public class Bullet : FlyingBullet
 {
+    //public GameObject FlyingBullet;
     public Vector2 direction;
     public float speed;
+    public float speedFactor;
 
     private void Update()
     {
-        GetComponent<Rigidbody2D>().velocity = speed * direction;
+        speed += speed * speedFactor * Time.deltaTime;
+        transform.Translate(direction * speed * Time.deltaTime);
         if (transform.position.y > 30 || transform.position.y < -30)
         {
-            Destroy(gameObject);
+            BulletPool.Instance.ReturnToPool(this);
         }
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        PlayerController controller = other.GetComponent<PlayerController>();
-        if (controller != null)
+        //PlayerController controller = other.GetComponent<PlayerController>();
+        if (other.CompareTag("Terrain"))
         {
-            Destroy(gameObject);//TODO:damage
+            BulletPool.Instance.ReturnToPool(this);//TODO:damage
         }
-        else
+        else if(other.CompareTag("Player"))
 		{
-            Destroy(gameObject);
-		}
+            //TODO:damage
+            BulletPool.Instance.ReturnToPool(this);
+        }
     }
 }

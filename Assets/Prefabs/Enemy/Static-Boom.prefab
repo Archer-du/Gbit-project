@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7471826480812953018}
   - component: {fileID: 4897668580429566130}
   - component: {fileID: 407060710773351406}
-  - component: {fileID: 1645035488051697161}
+  - component: {fileID: 7604691779137226547}
   m_Layer: 0
   m_Name: Static-Boom
   m_TagString: Untagged
@@ -104,8 +104,9 @@ MonoBehaviour:
   currentInterval: 0
   maxInterval: 0
   player: {fileID: 0}
---- !u!60 &1645035488051697161
-PolygonCollider2D:
+  animator: {fileID: 0}
+--- !u!58 &7604691779137226547
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -117,41 +118,9 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.6, y: 1.6}
-    newSize: {x: 1.6, y: 1.6}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.6810164, y: -0.26823574}
-      - {x: 0.69860953, y: -0.17203231}
-      - {x: 0.68721956, y: 0.0065769963}
-      - {x: 0.6544387, y: 0.07037405}
-      - {x: 0.6072196, y: 0.18240684}
-      - {x: 0.4406421, y: 0.34759364}
-      - {x: 0.26962593, y: 0.4172191}
-      - {x: 0.19443892, y: 0.4348132}
-      - {x: 0.025935128, y: 0.4272191}
-      - {x: -0.18101615, y: 0.33962595}
-      - {x: -0.36481297, y: 0.16721958}
-      - {x: -0.42342275, y: 0.01721958}
-      - {x: -0.43721932, y: -0.05139021}
-      - {x: -0.43342274, y: -0.25379658}
-      - {x: -0.38721934, y: -0.40240636}
-      - {x: -0.21962595, y: -0.59481275}
-      - {x: -0.061016157, y: -0.6848132}
-      - {x: 0.12935789, y: -0.70721954}
-      - {x: 0.21315446, y: -0.70342296}
-      - {x: 0.32037404, y: -0.6796259}
-      - {x: 0.45379657, y: -0.6072196}
-      - {x: 0.58240634, y: -0.48101616}
-      - {x: 0.62, y: -0.42203277}
+  m_Offset: {x: 0.2010796, y: -0.21043217}
+  serializedVersion: 2
+  m_Radius: 0.913309
 --- !u!1 &8000485128669510194
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,8 +148,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8000485128669510194}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.125, y: -0.134, z: 0}
-  m_LocalScale: {x: 1.2035345, y: 1.2035345, z: 1.2035345}
+  m_LocalPosition: {x: 0.194, y: -0.2149, z: 0}
+  m_LocalScale: {x: 2.0312595, y: 2.0312595, z: 2.0312595}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7471826480812953018}
@@ -271,3 +240,4 @@ MonoBehaviour:
   currentInterval: 0
   maxInterval: 0
   player: {fileID: 0}
+  animator: {fileID: 0}

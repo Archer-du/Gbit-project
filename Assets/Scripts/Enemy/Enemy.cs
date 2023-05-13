@@ -12,6 +12,7 @@ namespace EnemyController
         public float currentInterval;
         public float maxInterval;
         public GameObject player;
+        public Animator animator;
 
         public void Damage(int damage)
         {

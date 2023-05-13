@@ -119,15 +119,15 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Static-Boom-Ready_Frame_0
     originalName: 
-    pivot: {x: 0.38938054, y: -0.078947365}
+    pivot: {x: 0.50442475, y: -0.20353982}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 137
+      y: 288
       width: 113
-      height: 114
+      height: 113
     spriteID: a8ce116330887aa4f8bb9f43f8920b40
     spriteBone: []
     spriteOutline: []
@@ -136,19 +136,39 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 137}
+    uvTransform: {x: 4, y: 288}
   - name: Static-Boom-Ready_Frame_1
     originalName: 
-    pivot: {x: 0.49264705, y: -0.12}
+    pivot: {x: 0.48529413, y: -0.12}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 155
+      width: 136
+      height: 125
+    spriteID: f5b3402c7883d9e48a465ced1ed4a010
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 155}
+  - name: Static-Boom-Ready_Frame_2
+    originalName: 
+    pivot: {x: 0.49333337, y: -0.034965035}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 136
-      height: 125
-    spriteID: f5b3402c7883d9e48a465ced1ed4a010
+      width: 150
+      height: 143
+    spriteID: 40ae4c3e3e822e54d9fa703584cae4d3
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -169,19 +189,27 @@ ScriptedImporter:
     - name: Static-Boom-Ready_Frame_0
       frameIndex: 0
       cellRect:
-        x: 36
-        y: 9
+        x: 23
+        y: 23
         width: 113
-        height: 114
+        height: 113
       spriteId: a8ce116330887aa4f8bb9f43f8920b40
     - name: Static-Boom-Ready_Frame_1
       frameIndex: 1
       cellRect:
-        x: 13
+        x: 14
         y: 15
         width: 136
         height: 125
       spriteId: f5b3402c7883d9e48a465ced1ed4a010
+    - name: Static-Boom-Ready_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 6
+        y: 5
+        width: 150
+        height: 143
+      spriteId: 40ae4c3e3e822e54d9fa703584cae4d3
     linkedCells: []
     parentIndex: -1
   platformSettings: []

@@ -157,86 +157,6 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 42}
-  - name: Flying-Bullet-Shooting_Frame_2
-    originalName: 
-    pivot: {x: 0.7333333, y: -2.9}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 80
-      width: 30
-      height: 30
-    spriteID: 5a96af28d27ad2647a19b376380934c1
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 80}
-  - name: Flying-Bullet-Shooting_Frame_3
-    originalName: 
-    pivot: {x: 0.7333333, y: -2.9}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 42
-      y: 4
-      width: 30
-      height: 30
-    spriteID: dcb976a0debd4f645a9a3eceb56a44a9
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 42, y: 4}
-  - name: Flying-Bullet-Shooting_Frame_4
-    originalName: 
-    pivot: {x: 0.7333333, y: -2.9}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 42
-      y: 42
-      width: 30
-      height: 30
-    spriteID: adefb88dca48b3b49975b4898d40a71e
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 42, y: 42}
-  - name: Flying-Bullet-Shooting_Frame_5
-    originalName: 
-    pivot: {x: 0.7333333, y: -2.9}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 42
-      y: 80
-      width: 30
-      height: 30
-    spriteID: 9392ecc94601110409422cb9107c7fca
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 42, y: 80}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -262,38 +182,6 @@ ScriptedImporter:
         width: 30
         height: 30
       spriteId: 1ecfb7f2ce048a040a2244b9e29a79dd
-    - name: Flying-Bullet-Shooting_Frame_2
-      frameIndex: 2
-      cellRect:
-        x: 58
-        y: 87
-        width: 30
-        height: 30
-      spriteId: 5a96af28d27ad2647a19b376380934c1
-    - name: Flying-Bullet-Shooting_Frame_3
-      frameIndex: 3
-      cellRect:
-        x: 58
-        y: 87
-        width: 30
-        height: 30
-      spriteId: dcb976a0debd4f645a9a3eceb56a44a9
-    - name: Flying-Bullet-Shooting_Frame_4
-      frameIndex: 4
-      cellRect:
-        x: 58
-        y: 87
-        width: 30
-        height: 30
-      spriteId: adefb88dca48b3b49975b4898d40a71e
-    - name: Flying-Bullet-Shooting_Frame_5
-      frameIndex: 5
-      cellRect:
-        x: 58
-        y: 87
-        width: 30
-        height: 30
-      spriteId: 9392ecc94601110409422cb9107c7fca
     linkedCells: []
     parentIndex: -1
   platformSettings: []

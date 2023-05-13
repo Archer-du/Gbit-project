@@ -5,7 +5,7 @@ using EnemyController;
 
 public class FlyingBullet : Enemy
 {
-    [SerializeField] public GameObject bulletPrefab;
+    //[SerializeField] public GameObject bulletPrefab;
     void Start()
     {
         enemyState = new EnemyState();
@@ -14,6 +14,7 @@ public class FlyingBullet : Enemy
         maxInterval = 20;
         currentInterval = 0;
         player = GameObject.Find("Player");
+        animator = GetComponent<Animator>();
     }
 
 	void Update()
@@ -68,19 +69,20 @@ public class FlyingBullet : Enemy
     
     void Idle()
 	{
-        //TODO:播放待机动画
+        animator.SetBool("Attack", false);//TODO:播放待机动画
 	}
 
 	void Attack()
 	{
-         if(currentInterval < maxInterval)
+        animator.SetBool("Attack", true); 
+        if(currentInterval < maxInterval)
 		{
             currentInterval += Time.deltaTime * 10;
 		}
-         else if(currentInterval < (maxInterval * 0.5f))
-		{
-            //TODO:播放射击提示动画
-		}
+  //       else if(currentInterval < (maxInterval * 0.5f))
+		//{
+  //          //TODO:播放射击提示动画
+		//}
         else
 		{
             Shoot();
@@ -89,12 +91,18 @@ public class FlyingBullet : Enemy
 	}
 
     void Shoot()
-	{
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
-        Bullet Bullet = bullet.GetComponent<Bullet>();
-        Bullet.speed = 3;
-        Bullet.direction = (player.transform.position - transform.position);
+    {
+        Bullet bullet = BulletPool.Instance.GetFromPool();
+        if (bullet != null)
+        {
+            bullet.gameObject.SetActive(true);
+            bullet.transform.position = transform.position + Vector3.up * 0.5f;
+            bullet.direction = (player.transform.position - transform.position);
+            bullet.speed = 2;
+            bullet.speedFactor = 0.5f;
+        }
     }
+
 
     void Dead()
 	{
