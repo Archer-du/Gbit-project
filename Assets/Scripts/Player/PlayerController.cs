@@ -93,12 +93,12 @@ namespace GbitProjectControl
 			slideScaleY = 0.4f;
 			slideScaleX = 2.5f;
 			slideBoxSize = new Vector2(slideScaleX * box.size.x, slideScaleY * box.size.y);
-			slideBoxOffset = box.offset.y - slideBoxSize.y * (1 - slideScaleY / 2);
+			slideBoxOffset = box.offset.y - box.size.y * ((1 - slideScaleY) / 2f);
 			originBoxSize = new Vector2(box.size.x, box.size.y);
 			originBoxOffset = box.offset.y;
 			//collision
-			lowerDistance = originBoxSize.y / 2f - originBoxOffset + 0.2f;
-			upperDistance = originBoxSize.y / 2f + originBoxOffset + 0.1f;
+			lowerDistance = originBoxSize.y / 2f - originBoxOffset + 0.05f;
+			upperDistance = originBoxSize.y / 2f + originBoxOffset + 0.05f;
 		}
 		private void Update()
 		{
@@ -117,7 +117,7 @@ namespace GbitProjectControl
 			onGroundCheckFore = Physics2D.Raycast(new Vector2(transform.position.x + 1, transform.position.y), Vector2.down, lowerDistance, groundLayer);
 			state.onGround = onGroundCheckFore || onGroundCheckBack;
 
-			if (state.falling && state.onGround)
+			if (state.onGround && !state.attacking && !state.sliding && !state.dashing)
 			{
 				state.jumping = false;
 				state.falling = false;
@@ -167,12 +167,6 @@ namespace GbitProjectControl
 
 		private void Attack()
 		{
-			switch (attackType)
-			{
-				case AttackType.light:
-				case AttackType.heavy:
-				default: break;
-			}
 			if (state.attacking)
 			{
 				if(attackTimer < attackTimeMax)
@@ -194,7 +188,7 @@ namespace GbitProjectControl
 				else if (Input.GetMouseButton(0) && state.running)
 				{
 					attackTimer = 0f;
-					attackColdDown = 1f;
+					attackColdDown = attackInterval;
 					state.attacking = true;
 					attackType = AttackType.light;//TODO:
 				}
@@ -236,6 +230,7 @@ namespace GbitProjectControl
 				{
 					slideTimer = 0f;
 					slideColdDown = slideInterval;
+					state.running = false;
 					state.sliding = true;
 				}
 			}
