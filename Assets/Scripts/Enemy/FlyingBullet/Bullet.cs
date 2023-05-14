@@ -5,6 +5,7 @@ using EnemyController;
 
 public class Bullet : FlyingBullet
 {
+    //public GameObject FlyingBullet;
     public Vector2 direction;
     public float speed;
     public float speedFactor;

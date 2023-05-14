@@ -99,6 +99,7 @@ public class FlyingBullet : Enemy
     }
         
 
+
     void Dead()
 	{
         //TODO:anim
