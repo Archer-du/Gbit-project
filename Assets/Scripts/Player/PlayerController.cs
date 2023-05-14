@@ -55,11 +55,8 @@ namespace GbitProjectControl
 		private float slideScaleY;
 
 		[Header("Dash")]
-		[SerializeField] private float dashTimer;
 		[SerializeField] private float dashColdDown;
-		private float dashTimeMax;
 		private float dashInterval;
-		private Vector2 dashVelocity;
 		private float dashSpeed;
 
 		[Header("Collision")]
@@ -89,7 +86,7 @@ namespace GbitProjectControl
 			//Jump
 			jumpPressedTime = 0f;
 			coyoteTimer = 0f;
-			coyoteTimeMax = 0.2f;
+			coyoteTimeMax = 0.4f;
 			jumpHeight = 4.5f;
 			upwardGravityScale = 3f;
 			downwardGravityScale = 8f;
@@ -106,10 +103,8 @@ namespace GbitProjectControl
 			originBoxSize = new Vector2(box.size.x, box.size.y);
 			originBoxOffset = box.offset.y;
 			//dash
-			dashTimer = 0f;
 			dashColdDown = 0f;
 			dashInterval = 3f;
-			dashTimeMax = 0.3f;
 			dashSpeed = 12f;
 			//collision
 			lowerDistance = originBoxSize.y / 2f - originBoxOffset + 0.02f;
@@ -124,6 +119,7 @@ namespace GbitProjectControl
 			StateCheck();
 
 			Jump();
+			Coyote();
 			Attack();
 			Slide();
 			Dash();
@@ -153,6 +149,7 @@ namespace GbitProjectControl
 				{
 				state.jumping = true;
 				}
+				state.falling = false;
 				state.running = false;
 			}
 			else if (state.onGround && !state.attacking && !state.sliding && !state.dashing)
@@ -170,6 +167,10 @@ namespace GbitProjectControl
 			}
 			if (Input.GetButtonDown("Jump") && (state.running || state.coyote))
 			{
+				if (state.coyote)
+				{
+					animator.SetTrigger("coyote");
+				}
 				state.jumpPressing = true;
 				jumpPressedTime = 0f;
 				coyoteTimer = 0f;
@@ -181,8 +182,9 @@ namespace GbitProjectControl
 				rb.gravityScale = downwardGravityScale;
 				state.jumpPressing = false;
 			}
-
-			//coyote time
+		}
+		private void Coyote()
+		{
 			if (!state.jumping && state.falling && !state.running)
 			{
 				if (coyoteTimer < coyoteTimeMax)
@@ -197,7 +199,6 @@ namespace GbitProjectControl
 			}
 			else state.coyote = false;
 		}
-
 		private void Attack()
 		{
 			if (Input.GetKeyDown(KeyCode.J))
@@ -287,6 +288,10 @@ namespace GbitProjectControl
 				}
 			}
 		}
+		public void DashPrePos()
+		{
+
+		}
 		private void Dash()
 		{
 			if (state.dashing)
@@ -303,7 +308,6 @@ namespace GbitProjectControl
 				{
 					animator.SetTrigger("dash");
 					rb.gravityScale = 0;
-					dashTimer = 0f;
 					dashColdDown = dashInterval;
 					state.running = false;
 					state.jumping = false;
@@ -334,6 +338,7 @@ namespace GbitProjectControl
 			animator.SetBool("falling", state.falling);
 			animator.SetBool("sliding", state.sliding);
 			animator.SetBool("attacking", state.attacking);
+			animator.SetBool("dashing", state.dashing);
 		}
 
 		//debug functions

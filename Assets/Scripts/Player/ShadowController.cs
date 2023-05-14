@@ -37,14 +37,14 @@ namespace GbitProjectCore
             transform.rotation = playerTransform.rotation;
             transform.localScale = playerTransform.localScale;
 		}
-		void Update()
+		void FixedUpdate()
         {
             shadowAlpha *= shadowAlphaMultiplier;
             shadowColor = new Color(0, 0, 1, shadowAlpha);
             shadowSprite.color = shadowColor;
             if(activeTimer < activeTimeWindow)
             {
-                activeTimer += Time.deltaTime;
+                activeTimer += Time.fixedDeltaTime;
             }
 			else// return to object pool
 			{
