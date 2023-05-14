@@ -1,5 +1,3 @@
-using GbitProjectControl;
-using GbitProjectState;
 using UnityEngine;
 
 namespace EnemyController
@@ -7,7 +5,7 @@ namespace EnemyController
     public class Enemy : MonoBehaviour
     {
         public EnemyState enemyState;
-        [SerializeField] public int enemyEnergy;
+        public int enemyEnergy;
         public float attackScale;
         public float currentInterval;
         public float maxInterval;
@@ -18,6 +16,53 @@ namespace EnemyController
         {
             enemyEnergy -= damage;
             Debug.Log(enemyEnergy);
+        }
+    }
+    public class EnemyState : Enemy
+    {
+
+        public enum State
+        {
+            Idle,
+            Attack,
+            Alert,
+            Dead
+        }
+
+        private State currentState;
+        public State CurrentState
+        {
+            get { return currentState; }
+            set { currentState = value; }
+        }
+
+        public EnemyState()
+        {
+            currentState = State.Idle;
+        }
+    }
+    public class BossState : Enemy
+    {
+
+        public enum State
+        {
+            Chase,
+            BulletRain,
+            Laser,
+            Dash
+        }
+
+        private State currentState;
+
+        public State CurrentState
+        {
+            get { return currentState; }
+            set { currentState = value; }
+        }
+
+        public BossState()
+        {
+            currentState = State.Chase;
         }
     }
 }

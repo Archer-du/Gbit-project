@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Animation/Enemy/FlyingBullet.meta
+guid: 13c7f1e912d0ae14394273dc3952fe74
+folderAsset: yes
+DefaultImporter:
+========
 guid: 844c868e9dd2ce746906e9393375ac37
 PrefabImporter:
+>>>>>>>> f4f3e4a8364f9da6fdd9dc29dd8bd40ea2a4c3b1:Assets/Prefabs/Player/ObjectPool.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
