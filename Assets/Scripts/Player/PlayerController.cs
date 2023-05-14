@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using GbitProjectState;
 using Unity.VisualScripting;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 namespace GbitProjectControl
 {
@@ -14,6 +13,7 @@ namespace GbitProjectControl
 		[Header("Components")]
 		public Rigidbody2D rb;
 		public BoxCollider2D box;
+		public SpriteRenderer PlayerSprite;
 		public Animator animator;
 		public LayerMask groundLayer;
 
@@ -21,7 +21,7 @@ namespace GbitProjectControl
 		public PlayerState state;
 
 		[Header("Basic")]
-		private float speed;
+		private Vector2 velocity;
 		private bool onGroundCheckFore;
 		private bool onGroundCheckBack;
 		[SerializeField] public int health { get; protected set; }
@@ -30,9 +30,9 @@ namespace GbitProjectControl
 		[Header("Jump")]
 		[SerializeField] private float jumpPressedTime;
 		[SerializeField] private float jumpPressedWindow;
+		[SerializeField] private float jumpHeight;
 		[SerializeField] private float coyoteTimer;
 		private float coyoteTimeMax;
-		private float jumpHeight;
 		private float upwardGravityScale;
 		private float downwardGravityScale;
 		//private bool coyoteCheck = true;
@@ -41,23 +41,33 @@ namespace GbitProjectControl
 		[SerializeField] private bool comboEnable;
 		[SerializeField] private int comboStep;
 		[HideInInspector] public float attackPower = 1f;
-		private float attackInterval = 1f;
 
 		[Header("Slide")]
 		[SerializeField] private float slideTimer;
 		[SerializeField] private float slideColdDown;
+		[SerializeField] private Vector2 slideBoxSize;
+		[SerializeField] private float slideBoxOffset;
+		[SerializeField] private Vector2 originBoxSize;
+		[SerializeField] private float originBoxOffset;
 		private float slideTimeMax;
 		private float slideInterval;
-		private Vector2 slideBoxSize;
-		private float slideBoxOffset;
-		private Vector2 originBoxSize;
-		private float originBoxOffset;
 		private float slideScaleX;
 		private float slideScaleY;
+
+		[Header("Dash")]
+		[SerializeField] private float dashTimer;
+		[SerializeField] private float dashColdDown;
+		private float dashTimeMax;
+		private float dashInterval;
+		private Vector2 dashVelocity;
+		private float dashSpeed;
 
 		[Header("Collision")]
 		[SerializeField] private float lowerDistance;
 		[SerializeField] private float upperDistance;
+
+		[Header("Test")]
+		private float x;
 
 		public PlayerController()
 		{
@@ -73,7 +83,7 @@ namespace GbitProjectControl
 		{
 			// status initialize:
 			//Basic
-			speed = 6.0f;
+			velocity = new Vector2(6f, 0);
 			health = maxHealth;
 			//Jump
 			jumpPressedTime = 0f;
@@ -94,27 +104,46 @@ namespace GbitProjectControl
 			slideBoxOffset = box.offset.y - box.size.y * ((1 - slideScaleY) / 2f);
 			originBoxSize = new Vector2(box.size.x, box.size.y);
 			originBoxOffset = box.offset.y;
+			//dash
+			dashTimer = 0f;
+			dashColdDown = 0f;
+			dashInterval = 3f;
+			dashTimeMax = 0.3f;
+			dashSpeed = 20f;
 			//collision
 			lowerDistance = originBoxSize.y / 2f - originBoxOffset + 0.02f;
 			upperDistance = originBoxSize.y / 2f + originBoxOffset + 0.02f;
 		}
 		private void Update()
 		{
-			float x = Input.GetAxis("Horizontal");//for testing
-			transform.Translate(Vector2.right * Time.deltaTime * speed * x);
+			x = Input.GetAxis("Horizontal");//for testing
 
 			AnimationState();
+
+			StateCheck();
+
 			Jump();
 			Attack();
 			Slide();
+			Dash();
+		}
+		private void FixedUpdate()
+		{
+			transform.Translate(velocity * Time.deltaTime * x);
 		}
 
-		private void Jump()
+		private void StateCheck()
 		{
 			onGroundCheckBack = Physics2D.Raycast(transform.position, Vector2.down, lowerDistance, groundLayer);
 			onGroundCheckFore = Physics2D.Raycast(new Vector2(transform.position.x + 1, transform.position.y), Vector2.down, lowerDistance, groundLayer);
 			state.onGround = onGroundCheckFore || onGroundCheckBack;
-
+			if (state.onGround)
+			{
+				rb.gravityScale = 0f;
+			}
+		}
+		private void Jump()
+		{
 			if (rb.velocity.y < -0.01f)
 			{
 				state.falling = true;
@@ -131,11 +160,12 @@ namespace GbitProjectControl
 				state.falling = false;
 				state.running = true;
 			}
+
 			if (state.jumpPressing)
 			{
 				jumpPressedTime += Time.deltaTime;
 			}
-			if (Input.GetButtonDown("Jump") && !state.attacking && !state.sliding && (state.running || state.coyote))
+			if (Input.GetButtonDown("Jump") && (state.running || state.coyote))
 			{
 				state.jumpPressing = true;
 				jumpPressedTime = 0f;
@@ -256,6 +286,42 @@ namespace GbitProjectControl
 		}
 		private void Dash()
 		{
+			if (state.dashing)
+			{
+				if(dashTimer < dashTimeMax)
+				{
+					dashTimer += Time.deltaTime;
+					ObjectPool.instance.PoolGet();
+				}
+				else
+				{
+					state.dashing = false;
+					rb.gravityScale = downwardGravityScale;
+				}
+			}
+			else //if not dashing
+			{
+				if (dashColdDown > 0)
+				{
+					dashColdDown -= Time.deltaTime;
+				}
+				else if (Input.GetButtonDown("Dash") && (state.running || state.jumping))
+				{
+					rb.gravityScale = 0;
+					dashTimer = 0f;
+					dashColdDown = dashInterval;
+					state.running = false;
+					state.dashing = true;
+					if (Input.GetKey(KeyCode.W))
+					{
+						rb.velocity = new Vector2(1, 1) * dashSpeed;
+					}
+					else
+					{
+						rb.velocity = new Vector2(1, 0) * dashSpeed;
+					}
+				}
+			}
 		}
 		//state machine
 		private void AnimationState()
@@ -278,4 +344,5 @@ namespace GbitProjectControl
 		}
 	}
 }
+
 

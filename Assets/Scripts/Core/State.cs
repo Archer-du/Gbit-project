@@ -9,13 +9,13 @@ namespace GbitProjectState
 	public class PlayerState
 	{
 		public bool onGround;
+		public bool isblocked;
 		public bool running;	//grounded
 		public bool jumping;
 		public bool jumpPressing;
 		public bool falling;
 		public bool attacking;
 		public bool dashing;
-		public bool recovering;
 		public bool sliding;
 		public bool ceiled;
 		public bool touching;	//entered the designated range of the enemy
@@ -31,13 +31,14 @@ namespace GbitProjectState
 		}
 		public PlayerState()
 		{
-			onGround = true;
+			onGround = false;
+			isblocked = false;
+			running = false;
 			jumping = false;
 			jumpPressing = false;
-			running = true;
+			falling = true;
 			attacking = false;
 			dashing = false;
-			recovering = false;
 			sliding = false;
 			ceiled = false;
 			touching = false;

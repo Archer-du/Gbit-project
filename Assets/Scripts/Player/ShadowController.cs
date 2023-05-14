@@ -1,0 +1,52 @@
+//author: Archer
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace GbitProjectCore
+{
+    public class ShadowController : MonoBehaviour
+    {
+        private Transform playerTransform;
+
+		[SerializeField] private SpriteRenderer shadowSprite;
+        [SerializeField] private SpriteRenderer PlayerSprite;
+		[SerializeField] private Color shadowColor;
+		[SerializeField] private float shadowAlpha;
+		[SerializeField] private float shadowAlphaMultiplier;
+		[SerializeField] private float activeTimer;
+		[SerializeField] private float activeTimeWindow;
+
+		private void Awake()
+		{
+            shadowAlphaMultiplier = 0.8f;
+            activeTimeWindow = 1f;
+		}
+		private void OnEnable()
+		{
+            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            shadowSprite = GetComponent<SpriteRenderer>();
+            PlayerSprite = playerTransform.GetComponent<SpriteRenderer>();
+            shadowAlpha = 0.75f;
+            activeTimer = 0;
+
+            shadowSprite.sprite = PlayerSprite.sprite;
+            transform.position = playerTransform.position;
+		}
+		void Update()
+        {
+            shadowAlpha *= shadowAlphaMultiplier;
+            shadowColor = new Color(0, 0, 1, shadowAlpha);
+            shadowSprite.color = shadowColor;
+            if(activeTimer < activeTimeWindow)
+            {
+                activeTimer += Time.deltaTime;
+            }
+			else// return to object pool
+			{
+                ObjectPool.instance.PoolReturn(this.gameObject);
+            }
+        }
+    }
+
+}

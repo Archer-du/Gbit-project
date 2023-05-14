@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6728937369562067944}
   - component: {fileID: 6728937369562067945}
-  - component: {fileID: 6728937369562067950}
   - component: {fileID: 6728937369562067947}
   - component: {fileID: 6728937369562067946}
   - component: {fileID: 396960783}
@@ -88,27 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &6728937369562067950
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6728937369562067951}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 50
-  m_LinearDrag: 0
-  m_AngularDrag: 0
-  m_GravityScale: 5
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 4
 --- !u!61 &6728937369562067947
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -125,7 +103,7 @@ BoxCollider2D:
   m_Offset: {x: -0.7447595, y: -0.22044075}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.2, y: 0.5}
     oldSize: {x: 3.5, y: 3.25}
     newSize: {x: 1.28, y: 1.26}
     adaptiveTilingThreshold: 0.5
@@ -147,7 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f35ead8f665abb4b9f56ec09f108daa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
   box: {fileID: 0}
   animator: {fileID: 0}
   groundLayer:
@@ -155,6 +132,7 @@ MonoBehaviour:
     m_Bits: 64
   state:
     onGround: 1
+    isblocked: 0
     running: 1
     jumping: 0
     jumpPressing: 0
@@ -162,19 +140,33 @@ MonoBehaviour:
     attacking: 0
     dashing: 0
     sliding: 0
+    ceiled: 0
     touching: 0
     hitted: 0
     coyote: 0
     death: 0
-  distance: 0
-  attackTimer: 0
-  attackColdDown: 0
+    attackType: 0
+  horizontalVelocity: 0
+  verticalVelocity: 0
+  onGroundCheckFore: 0
+  onGroundCheckBack: 0
+  blockCheckFore: 0
+  gravity: 0
+  gravityScale: 0
+  upwardGravityScale: 0
+  downwardGravityScale: 0
+  jumpPressedTime: 0
+  jumpPressedWindow: 0
+  coyoteTimer: 0
+  comboEnable: 0
+  comboStep: 0
   attackPower: 1
   slideTimer: 0
   slideColdDown: 0
-  coyoteTimer: 0
-  jumpPressedTime: 0
-  jumpPressedWindow: 0
+  lowerDistance: 0
+  upperDistance: 0
+  forwardDistance: 0
+  x: 0
 --- !u!95 &396960783
 Animator:
   serializedVersion: 5
