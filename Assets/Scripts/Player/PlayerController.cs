@@ -13,7 +13,7 @@ namespace GbitProjectControl
 		[Header("Components")]
 		public Rigidbody2D rb;
 		public BoxCollider2D box;
-		public SpriteRenderer PlayerSprite;
+		public SpriteRenderer playerSprite;
 		public Animator animator;
 		public LayerMask groundLayer;
 
@@ -77,6 +77,7 @@ namespace GbitProjectControl
 		{
 			rb = GetComponent<Rigidbody2D>();
 			box = GetComponent<BoxCollider2D>();
+			playerSprite = GetComponent<SpriteRenderer>();
 			animator = GetComponent<Animator>();
 		}
 		private void Start()
@@ -109,7 +110,7 @@ namespace GbitProjectControl
 			dashColdDown = 0f;
 			dashInterval = 3f;
 			dashTimeMax = 0.3f;
-			dashSpeed = 20f;
+			dashSpeed = 12f;
 			//collision
 			lowerDistance = originBoxSize.y / 2f - originBoxOffset + 0.02f;
 			upperDistance = originBoxSize.y / 2f + originBoxOffset + 0.02f;
@@ -137,21 +138,21 @@ namespace GbitProjectControl
 			onGroundCheckBack = Physics2D.Raycast(transform.position, Vector2.down, lowerDistance, groundLayer);
 			onGroundCheckFore = Physics2D.Raycast(new Vector2(transform.position.x + 1, transform.position.y), Vector2.down, lowerDistance, groundLayer);
 			state.onGround = onGroundCheckFore || onGroundCheckBack;
-			if (state.onGround)
-			{
-				rb.gravityScale = 0f;
-			}
-		}
-		private void Jump()
-		{
+
 			if (rb.velocity.y < -0.01f)
 			{
+				if (!state.dashing)
+				{
 				state.falling = true;
+				}
 				state.running = false;
 			}
 			if (rb.velocity.y > 0.01f)//block the onGround check
 			{
+				if (!state.dashing)
+				{
 				state.jumping = true;
+				}
 				state.running = false;
 			}
 			else if (state.onGround && !state.attacking && !state.sliding && !state.dashing)
@@ -160,7 +161,9 @@ namespace GbitProjectControl
 				state.falling = false;
 				state.running = true;
 			}
-
+		}
+		private void Jump()
+		{
 			if (state.jumpPressing)
 			{
 				jumpPressedTime += Time.deltaTime;
@@ -288,16 +291,7 @@ namespace GbitProjectControl
 		{
 			if (state.dashing)
 			{
-				if(dashTimer < dashTimeMax)
-				{
-					dashTimer += Time.deltaTime;
-					ObjectPool.instance.PoolGet();
-				}
-				else
-				{
-					state.dashing = false;
-					rb.gravityScale = downwardGravityScale;
-				}
+				ObjectPool.instance.PoolGet();
 			}
 			else //if not dashing
 			{
@@ -305,12 +299,15 @@ namespace GbitProjectControl
 				{
 					dashColdDown -= Time.deltaTime;
 				}
-				else if (Input.GetButtonDown("Dash") && (state.running || state.jumping))
+				else if (Input.GetButtonDown("Dash") && (state.running || state.jumping || state.falling))
 				{
+					animator.SetTrigger("dash");
 					rb.gravityScale = 0;
 					dashTimer = 0f;
 					dashColdDown = dashInterval;
 					state.running = false;
+					state.jumping = false;
+					state.falling = false;
 					state.dashing = true;
 					if (Input.GetKey(KeyCode.W))
 					{
@@ -322,6 +319,11 @@ namespace GbitProjectControl
 					}
 				}
 			}
+		}
+		public void DashOver()
+		{
+			state.dashing = false;
+			rb.gravityScale = downwardGravityScale;
 		}
 		//state machine
 		private void AnimationState()
