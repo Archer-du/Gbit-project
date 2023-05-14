@@ -20,15 +20,15 @@ namespace GbitProjectCore
 
 		private void Awake()
 		{
-            shadowAlphaMultiplier = 1f;
-            activeTimeWindow = 1f;
+            shadowAlphaMultiplier = 0.9f;
+            activeTimeWindow = 0.5f;
 		}
 		private void OnEnable()
 		{
             playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
             shadowSprite = GetComponent<SpriteRenderer>();
             playerSprite = playerTransform.GetComponent<SpriteRenderer>();
-            shadowAlpha = 0.75f;
+            shadowAlpha = 0.8f;
             activeTimer = 0;
 
             shadowSprite.sprite = playerSprite.sprite;
@@ -40,7 +40,7 @@ namespace GbitProjectCore
 		void FixedUpdate()
         {
             shadowAlpha *= shadowAlphaMultiplier;
-            shadowColor = new Color(0, 0, 1, shadowAlpha);
+            shadowColor = new Color(0.63f, 0.46f, 0.70f, shadowAlpha);
             shadowSprite.color = shadowColor;
             if(activeTimer < activeTimeWindow)
             {

@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowSprite: {fileID: 0}
   playerSprite: {fileID: 0}
-  shadowColor: {r: 0, g: 0, b: 0, a: 0}
+  shadowColor: {r: 0.6311246, g: 0.46265578, b: 0.7169812, a: 0}
   shadowAlpha: 1
   shadowAlphaMultiplier: 1
   activeTimer: 0

@@ -294,11 +294,7 @@ namespace GbitProjectControl
 		}
 		private void Dash()
 		{
-			if (state.dashing)
-			{
-				ObjectPool.instance.PoolGet();
-			}
-			else //if not dashing
+			if (!state.dashing)
 			{
 				if (dashColdDown > 0)
 				{
@@ -323,6 +319,10 @@ namespace GbitProjectControl
 					}
 				}
 			}
+		}
+		public void DashShadowInstantiate()
+		{
+			ObjectPool.instance.PoolGet();
 		}
 		public void DashOver()
 		{
