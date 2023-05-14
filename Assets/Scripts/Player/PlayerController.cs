@@ -21,47 +21,57 @@ namespace GbitProjectControl
 		public PlayerState state;
 
 		[Header("Basic")]
-		private Vector2 velocity;
-		private bool onGroundCheckFore;
-		private bool onGroundCheckBack;
+		[SerializeField] private Vector2 velocity;
 		[SerializeField] public int health { get; protected set; }
-		protected int maxHealth = 100;
+		[SerializeField] protected int maxHealth = 100;
 
 		[Header("Jump")]
-		[SerializeField] private float jumpPressedTime;
+		[SerializeField] private float jumpPressedTime = 0f;
 		[SerializeField] private float jumpPressedWindow;
-		[SerializeField] private float jumpHeight;
-		[SerializeField] private float coyoteTimer;
-		private float coyoteTimeMax;
-		private float upwardGravityScale;
-		private float downwardGravityScale;
-		//private bool coyoteCheck = true;
+		[SerializeField] private float jumpHeight = 4.5f;
+		[SerializeField] private float upwardGravityScale = 3f;
+		[SerializeField] private float downwardGravityScale = 8f;
+
+		[Header("Coyote")]
+		[SerializeField] private float coyoteTimer = 0f;
+		[SerializeField] private float coyoteTimeWindow = 0.4f;
 
 		[Header("Attack")]
 		[SerializeField] private bool comboEnable;
-		[SerializeField] private int comboStep;
 		[HideInInspector] public float attackPower = 1f;
 
 		[Header("Slide")]
-		[SerializeField] private float slideTimer;
-		[SerializeField] private float slideColdDown;
+		[SerializeField] private float slideTimer = 0f;
+		[SerializeField] private float slideColdDown = 0f;
+		[SerializeField] private float slideTimeWindow = 0.7f;
+		[SerializeField] private float slideInterval = 1.2f;
+		[SerializeField] private float slideScaleX = 0.4f;
+		[SerializeField] private float slideScaleY = 2.5f;
 		[SerializeField] private Vector2 slideBoxSize;
 		[SerializeField] private float slideBoxOffset;
 		[SerializeField] private Vector2 originBoxSize;
 		[SerializeField] private float originBoxOffset;
-		private float slideTimeMax;
-		private float slideInterval;
-		private float slideScaleX;
-		private float slideScaleY;
 
 		[Header("Dash")]
-		[SerializeField] private float dashColdDown;
-		private float dashInterval;
-		private float dashSpeed;
+		[SerializeField] private float dashColdDown = 0f;
+		[SerializeField] private float dashInterval = 3f;
+		[SerializeField] private float dashSpeed = 12f;
 
-		[Header("Collision")]
-		[SerializeField] private float lowerDistance;
-		[SerializeField] private float upperDistance;
+		[Header("EnvironmentDetection")]
+		private float lowerDistance;
+		private float upperDistance;
+		private float foreDistance;
+		private RaycastHit2D onGroundCheckFore;
+		private RaycastHit2D onGroundCheckBack;
+		private RaycastHit2D ceilCheck;
+		private RaycastHit2D hangingCheckUpper;
+		private RaycastHit2D hangingCheckLower;
+		private RaycastHit2D hangingCheckDownward;
+		private Vector2 onGroundForePoint;
+		private Vector2 onGroundBackPoint;
+		private Vector2 hangingUpperPoint;
+		private Vector2 hangingLowerPoint;
+		private Vector2 hangingDownwardPoint;
 
 		[Header("Test")]
 		private float x;
@@ -84,31 +94,16 @@ namespace GbitProjectControl
 			velocity = new Vector2(6f, 0);
 			health = maxHealth;
 			//Jump
-			jumpPressedTime = 0f;
-			coyoteTimer = 0f;
-			coyoteTimeMax = 0.4f;
-			jumpHeight = 4.5f;
-			upwardGravityScale = 3f;
-			downwardGravityScale = 8f;
 			jumpPressedWindow = Mathf.Sqrt(2 * jumpHeight / (-Physics2D.gravity.y * upwardGravityScale));
 			//slide
-			slideTimer = 0f;
-			slideColdDown = 0f;
-			slideInterval = 1.2f;
-			slideTimeMax = 0.7f;
-			slideScaleY = 0.4f;
-			slideScaleX = 2.5f;
 			slideBoxSize = new Vector2(slideScaleX * box.size.x, slideScaleY * box.size.y);
 			slideBoxOffset = box.offset.y - box.size.y * ((1 - slideScaleY) / 2f);
 			originBoxSize = new Vector2(box.size.x, box.size.y);
 			originBoxOffset = box.offset.y;
-			//dash
-			dashColdDown = 0f;
-			dashInterval = 3f;
-			dashSpeed = 12f;
 			//collision
-			lowerDistance = originBoxSize.y / 2f - originBoxOffset + 0.02f;
-			upperDistance = originBoxSize.y / 2f + originBoxOffset + 0.02f;
+			lowerDistance = originBoxSize.y / 2f - box.offset.y + 0.02f;
+			upperDistance = originBoxSize.y / 2f + box.offset.y + 0.02f;
+			foreDistance = originBoxSize.x / 2f + box.offset.x + 0.5f;
 		}
 		private void Update()
 		{
@@ -129,12 +124,27 @@ namespace GbitProjectControl
 			transform.Translate(velocity * Time.deltaTime * x);
 		}
 
+		//environment detection method
 		private void StateCheck()
 		{
-			onGroundCheckBack = Physics2D.Raycast(transform.position, Vector2.down, lowerDistance, groundLayer);
-			onGroundCheckFore = Physics2D.Raycast(new Vector2(transform.position.x + 1, transform.position.y), Vector2.down, lowerDistance, groundLayer);
-			state.onGround = onGroundCheckFore || onGroundCheckBack;
+			onGroundForePoint = new Vector2(transform.position.x + 1, transform.position.y);
+			onGroundBackPoint = new Vector2(transform.position.x, transform.position.y);
+			hangingUpperPoint = new Vector2(transform.position.x, transform.position.y + 1);
+			hangingLowerPoint = new Vector2(transform.position.x, transform.position.y - 1);
+			hangingDownwardPoint = new Vector2(transform.position.x + 1.5f, transform.position.y + 1);
 
+			onGroundCheckFore = Physics2D.Raycast(onGroundForePoint, Vector2.down, lowerDistance, groundLayer);
+			onGroundCheckBack = Physics2D.Raycast(onGroundBackPoint, Vector2.down, lowerDistance, groundLayer);
+			ceilCheck = Physics2D.Raycast(onGroundBackPoint, Vector2.up, upperDistance, groundLayer);
+			hangingCheckUpper = Physics2D.Raycast(hangingUpperPoint, Vector2.right, foreDistance, groundLayer);
+			hangingCheckLower = Physics2D.Raycast(hangingLowerPoint, Vector2.right, foreDistance, groundLayer);
+			hangingCheckDownward = Physics2D.Raycast(hangingDownwardPoint, Vector2.down, foreDistance, groundLayer);//TODO:
+
+			state.onGround = onGroundCheckFore || onGroundCheckBack;
+			state.hanging = !hangingCheckUpper && hangingCheckLower && hangingCheckDownward;
+			state.ceiled = ceilCheck;
+
+			//state adjustment
 			if (rb.velocity.y < -0.01f)
 			{
 				if (!state.dashing)
@@ -143,7 +153,7 @@ namespace GbitProjectControl
 				}
 				state.running = false;
 			}
-			if (rb.velocity.y > 0.01f)//block the onGround check
+			if (rb.velocity.y > 0.01f)//block the running check
 			{
 				if (!state.dashing)
 				{
@@ -159,35 +169,40 @@ namespace GbitProjectControl
 				state.running = true;
 			}
 		}
+
+		//Basic Movement methods
 		private void Jump()
 		{
 			if (state.jumpPressing)
 			{
 				jumpPressedTime += Time.deltaTime;
-			}
-			if (Input.GetButtonDown("Jump") && (state.running || state.coyote))
-			{
-				if (state.coyote)
+				if (Input.GetButtonUp("Jump") || jumpPressedTime > jumpPressedWindow)
 				{
-					animator.SetTrigger("coyote");
+					rb.gravityScale = downwardGravityScale;
+					state.jumpPressing = false;
 				}
-				state.jumpPressing = true;
-				jumpPressedTime = 0f;
-				coyoteTimer = 0f;
-				rb.gravityScale = upwardGravityScale;
-				rb.velocity = new Vector2(rb.velocity.x, Mathf.Sqrt(jumpHeight * (-Physics2D.gravity.y * upwardGravityScale) * 2));
 			}
-			if (Input.GetButtonUp("Jump") || jumpPressedTime > jumpPressedWindow)
+			else
 			{
-				rb.gravityScale = downwardGravityScale;
-				state.jumpPressing = false;
+				if (Input.GetButtonDown("Jump") && (state.running || state.coyote))
+				{
+					if (state.coyote)
+					{
+						animator.SetTrigger("coyote");
+					}
+					state.jumpPressing = true;
+					jumpPressedTime = 0f;
+					coyoteTimer = 0f;
+					rb.gravityScale = upwardGravityScale;
+					rb.velocity = new Vector2(rb.velocity.x, Mathf.Sqrt(jumpHeight * (-Physics2D.gravity.y * upwardGravityScale) * 2));
+				}
 			}
 		}
 		private void Coyote()
 		{
 			if (!state.jumping && state.falling && !state.running)
 			{
-				if (coyoteTimer < coyoteTimeMax)
+				if (coyoteTimer < coyoteTimeWindow)
 				{
 					if (!state.coyote)
 					{
@@ -226,34 +241,11 @@ namespace GbitProjectControl
 				}
 			}
 		}
-		public void ComboBegin()
-		{
-			comboEnable = true;
-		}
-		public void ComboOver()
-		{
-			if(state.attackType == PlayerState.AttackType.light2)
-			{
-				animator.SetTrigger("lightAttack2");
-			}
-			comboEnable = false;
-		}
-		public void AttackOver()
-		{
-			state.attacking = false;
-		}
-		public void RecoveryOver()
-		{
-			animator.SetTrigger("run");
-		}
-
 		private void Slide()
 		{
-			state.ceiled = Physics2D.Raycast(transform.position, Vector2.up, upperDistance, groundLayer);
-
 			if (state.sliding)
 			{
-				if (slideTimer < slideTimeMax)
+				if (slideTimer < slideTimeWindow)
 				{
 					box.size = slideBoxSize;
 					box.offset = new Vector2(box.offset.x, slideBoxOffset);
@@ -288,10 +280,6 @@ namespace GbitProjectControl
 				}
 			}
 		}
-		public void DashPrePos()
-		{
-
-		}
 		private void Dash()
 		{
 			if (!state.dashing)
@@ -320,6 +308,36 @@ namespace GbitProjectControl
 				}
 			}
 		}
+		private void OnTriggerEnter2D(Collider2D other)
+		{
+			if (other.CompareTag("Enemy"))
+			{
+				//enemy hitted
+			}
+		}
+
+		//animation frame event
+		public void ComboBegin()
+		{
+			comboEnable = true;
+		}
+		public void ComboOver()
+		{
+			if(state.attackType == PlayerState.AttackType.light2)
+			{
+				animator.SetTrigger("lightAttack2");
+			}
+			comboEnable = false;
+		}
+		public void AttackOver()
+		{
+			state.attacking = false;
+		}
+		public void RecoveryOver()
+		{
+			animator.SetTrigger("run");
+		}
+
 		public void DashShadowInstantiate()
 		{
 			ObjectPool.instance.PoolGet();
@@ -330,7 +348,8 @@ namespace GbitProjectControl
 			rb.gravityScale = downwardGravityScale;
 			rb.velocity = new Vector2(rb.velocity.x, 0);
 		}
-		//state machine
+
+		//animation state machine
 		private void AnimationState()
 		{
 			//animation adjustment
@@ -346,9 +365,13 @@ namespace GbitProjectControl
 		private void OnDrawGizmos()
 		{
 			Gizmos.color = Color.blue;
-			Gizmos.DrawLine(transform.position, transform.position + Vector3.down * lowerDistance);
-			Gizmos.DrawLine(new Vector2(transform.position.x + 1, transform.position.y), new Vector2(transform.position.x + 1, transform.position.y) + Vector2.down * lowerDistance);
-			Gizmos.DrawLine(transform.position, transform.position + Vector3.up * upperDistance);
+			Gizmos.DrawLine(onGroundBackPoint, onGroundBackPoint + Vector2.down * lowerDistance);
+			Gizmos.DrawLine(onGroundForePoint, onGroundForePoint + Vector2.down * lowerDistance);
+			Gizmos.DrawLine(onGroundBackPoint, onGroundBackPoint + Vector2.up * upperDistance);
+			Gizmos.color = Color.green;
+			Gizmos.DrawLine(hangingUpperPoint, hangingUpperPoint + Vector2.right * foreDistance);
+			Gizmos.DrawLine(hangingLowerPoint, hangingLowerPoint + Vector2.right * foreDistance);
+			Gizmos.DrawLine(hangingDownwardPoint, hangingDownwardPoint + Vector2.down * foreDistance);
 		}
 	}
 }

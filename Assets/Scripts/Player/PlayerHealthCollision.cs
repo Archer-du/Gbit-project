@@ -5,13 +5,8 @@ using UnityEngine;
 
 namespace GbitProjectControl
 {
-	public class HealthCollisions : PlayerController
+	public class PlayerHealthCollisions : PlayerController
 	{
-		public void OnTriggerEnter2D(Collider2D other)
-		{
-			Healed(1);
-			Damaged(1);
-		}
 		public void Healed(int gained)
 		{
 			health = Mathf.Clamp(health + gained, 0, maxHealth);
@@ -22,7 +17,7 @@ namespace GbitProjectControl
 		}
 		public void Terminated()
 		{
-			//TODO:
+			
 		}
 	}
 }

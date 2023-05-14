@@ -1,5 +1,63 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2123758855
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2123758856}
+  - component: {fileID: 2123758857}
+  m_Layer: 7
+  m_Name: AttackRange
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2123758856
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123758855}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6728937369562067944}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &2123758857
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123758855}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &6728937369562067951
 GameObject:
   m_ObjectHideFlags: 0
@@ -32,7 +90,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2123758856}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -136,6 +195,7 @@ MonoBehaviour:
   state:
     onGround: 0
     isblocked: 0
+    hanging: 0
     running: 0
     jumping: 0
     jumpPressing: 0
@@ -149,22 +209,30 @@ MonoBehaviour:
     coyote: 0
     death: 0
     attackType: 0
+  velocity: {x: 0, y: 0}
+  maxHealth: 100
   jumpPressedTime: 0
   jumpPressedWindow: 0
-  jumpHeight: 0
+  jumpHeight: 4.5
+  upwardGravityScale: 3
+  downwardGravityScale: 8
   coyoteTimer: 0
+  coyoteTimeWindow: 0.4
   comboEnable: 0
-  comboStep: 0
   attackPower: 1
   slideTimer: 0
   slideColdDown: 0
+  slideTimeWindow: 0.7
+  slideInterval: 1.2
+  slideScaleX: 2.5
+  slideScaleY: 0.4
   slideBoxSize: {x: 0, y: 0}
   slideBoxOffset: 0
   originBoxSize: {x: 0, y: 0}
   originBoxOffset: 0
   dashColdDown: 0
-  lowerDistance: 0
-  upperDistance: 0
+  dashInterval: 3
+  dashSpeed: 12
 --- !u!95 &396960783
 Animator:
   serializedVersion: 5

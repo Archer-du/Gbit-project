@@ -10,6 +10,7 @@ namespace GbitProjectState
 	{
 		public bool onGround;
 		public bool isblocked;
+		public bool hanging;
 		public bool running;	//grounded
 		public bool jumping;
 		public bool jumpPressing;
@@ -33,6 +34,7 @@ namespace GbitProjectState
 		{
 			onGround = false;
 			isblocked = false;
+			hanging = false;
 			running = false;
 			jumping = false;
 			jumpPressing = false;
