@@ -13,7 +13,7 @@ namespace EnemyController
         public Animator animator;
 
         public void Damage(int damage)
-        {  
+        {
             enemyEnergy -= damage;
             Debug.Log(enemyEnergy);
         }
@@ -30,7 +30,6 @@ namespace EnemyController
         }
 
         private State currentState;
-
         public State CurrentState
         {
             get { return currentState; }
@@ -40,6 +39,30 @@ namespace EnemyController
         public EnemyState()
         {
             currentState = State.Idle;
+        }
+    }
+    public class BossState : Enemy
+    {
+
+        public enum State
+        {
+            Chase,
+            BulletRain,
+            Laser,
+            Dash
+        }
+
+        private State currentState;
+
+        public State CurrentState
+        {
+            get { return currentState; }
+            set { currentState = value; }
+        }
+
+        public BossState()
+        {
+            currentState = State.Chase;
         }
     }
 }

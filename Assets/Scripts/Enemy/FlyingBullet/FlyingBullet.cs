@@ -4,7 +4,7 @@ using EnemyController;
 
 public class FlyingBullet : Enemy
 {
-    void Start()
+    void Awake()
     {
         enemyState = new EnemyState();
         enemyEnergy = 1;
