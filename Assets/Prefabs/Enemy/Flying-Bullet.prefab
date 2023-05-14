@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6600520599549824991}
   - component: {fileID: 4518035619093643705}
   - component: {fileID: 1058860599218704095}
-  - component: {fileID: 6392083136733866272}
+  - component: {fileID: 4867353768541422633}
   m_Layer: 0
   m_Name: Flying-Bullet
   m_TagString: Energy
@@ -97,7 +97,7 @@ Animator:
   m_GameObject: {fileID: 2343930456232581135}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4800318bcc3a74248a0a10fd6bbf8ac8, type: 2}
+  m_Controller: {fileID: 9100000, guid: b6e5f10a061bc2544b655a5486cdba63, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -125,9 +125,10 @@ MonoBehaviour:
   currentInterval: 0
   maxInterval: 0
   player: {fileID: 6728937369562067951, guid: b5772a3044cba164abf87f127f1fee16, type: 3}
+  animator: {fileID: 0}
   bulletPrefab: {fileID: 1405041303486870691, guid: f0c3ccd3ebb18c04b90cd5a32d52e0bd, type: 3}
---- !u!60 &6392083136733866272
-PolygonCollider2D:
+--- !u!58 &4867353768541422633
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -139,23 +140,6 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.6, y: 1.6}
-    newSize: {x: 1.6, y: 1.6}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.17, y: 0.3686341}
-      - {x: -0.24534152, y: 0.25919518}
-      - {x: -0.22397564, y: 0.121365875}
-      - {x: -0.11056082, y: 0.049999997}
-      - {x: 0.01, y: 0.06068282}
-      - {x: 0.08931717, y: 0.13273177}
-      - {x: 0.116024345, y: 0.25590235}
-      - {x: 0.03260977, y: 0.37931693}
+  m_Offset: {x: -0.11410797, y: 0.3480003}
+  serializedVersion: 2
+  m_Radius: 0.24018073

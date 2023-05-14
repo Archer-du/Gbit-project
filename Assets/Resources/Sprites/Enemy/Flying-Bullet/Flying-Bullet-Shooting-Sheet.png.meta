@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 020b54fd1d6fba140af40a644a31d215
+guid: 8582ca44ede0421458b90164328bb01f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,13 +105,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: background(1)_0
+      name: Flying-Bullet-Shooting-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 128
-        height: 208
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,20 +119,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90370f4782f9905499169c52cfbaf398
-      internalID: -860275108
+      spriteID: 2da915a5824e2d441a88afb0ec028015
+      internalID: -604748879
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background(1)_1
+      name: Flying-Bullet-Shooting-Sheet_1
       rect:
         serializedVersion: 2
-        x: 128
+        x: 160
         y: 0
-        width: 128
-        height: 208
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,29 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1dca42a8eaab7ff4d899bfd3b2f8c8ea
-      internalID: 1945444729
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: background(1)_2
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 128
-        height: 208
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0e5847ee735753f43ad8d491343e99fc
-      internalID: 53358315
+      spriteID: 8e03a55de71d0664592ba44f13eb87f0
+      internalID: 1146135838
       vertices: []
       indices: 
       edges: []
@@ -178,10 +157,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      background(1)_0: -860275108
-      background(1)_1: 1945444729
-      background(1)_2: 53358315
-      background(1)_3: 2020003337
+      Flying-Bullet-Shooting-Sheet_0: -604748879
+      Flying-Bullet-Shooting-Sheet_1: 1146135838
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -143,6 +143,7 @@ MonoBehaviour:
     falling: 0
     attacking: 0
     dashing: 0
+    recovering: 0
     sliding: 0
     ceiled: 0
     touching: 0
