@@ -1,11 +1,9 @@
 using GbitProjectControl;
-using GbitProjectState;
 using UnityEngine;
 using EnemyController;
 
 public class FlyingBullet : Enemy
 {
-    //[SerializeField] public GameObject bulletPrefab;
     void Start()
     {
         enemyState = new EnemyState();
@@ -69,7 +67,7 @@ public class FlyingBullet : Enemy
     
     void Idle()
 	{
-        animator.SetBool("Attack", false);//TODO:播放待机动画
+        animator.SetBool("Attack", false);
 	}
 
 	void Attack()
@@ -99,11 +97,11 @@ public class FlyingBullet : Enemy
             bullet.speedFactor = 0.5f;
         }
     }
-
+        
 
     void Dead()
 	{
-        //TODO:播放Boom动画
+        //TODO:anim
         Destroy(gameObject);
 	}
 

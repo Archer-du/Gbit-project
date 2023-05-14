@@ -1,5 +1,3 @@
-using GbitProjectControl;
-using GbitProjectState;
 using UnityEngine;
 using EnemyController;
 

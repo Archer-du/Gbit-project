@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using GbitProjectControl;
-using GbitProjectState;
-using EnemyController;
 public class BulletPool : MonoBehaviour
 {
     
