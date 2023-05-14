@@ -352,7 +352,7 @@ Transform:
   - {fileID: 807880919}
   - {fileID: 1013686980}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1734422764
 GameObject:
@@ -397,7 +397,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1734422767
 MonoBehaviour:
@@ -416,9 +416,6 @@ MonoBehaviour:
   - {fileID: 3076812626322249484, guid: 545f4a301d62be047af644f5043420bc, type: 3}
   - {fileID: 5209250412309039448, guid: 88ba857ed770f03498373c963d6f1fb2, type: 3}
   - {fileID: 8920647426315133965, guid: 4cc7499cd07f25b4786b116de1af9f57, type: 3}
-  maxTerrains: 3
-  spawn_X_Tr: 0
-  terrainLength: 20
 --- !u!1001 &5732878535466624139
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -432,7 +429,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5732878534915109497, guid: 282e0ca33f980dc4993db858cb2153c0, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5732878534915109497, guid: 282e0ca33f980dc4993db858cb2153c0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -544,6 +541,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Static-Boom
       objectReference: {fileID: 0}
+    - target: {fileID: 2067854221586953366, guid: 0a277ee9777180e4388b40fd4c365648, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897668580429566130, guid: 0a277ee9777180e4388b40fd4c365648, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897668580429566130, guid: 0a277ee9777180e4388b40fd4c365648, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -306710787
+      objectReference: {fileID: 0}
     - target: {fileID: 7471826480812953018, guid: 0a277ee9777180e4388b40fd4c365648, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -587,6 +596,10 @@ PrefabInstance:
     - target: {fileID: 7471826480812953018, guid: 0a277ee9777180e4388b40fd4c365648, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000485128669510194, guid: 0a277ee9777180e4388b40fd4c365648, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a277ee9777180e4388b40fd4c365648, type: 3}
