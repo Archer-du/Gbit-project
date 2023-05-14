@@ -328,6 +328,7 @@ namespace GbitProjectControl
 		{
 			state.dashing = false;
 			rb.gravityScale = downwardGravityScale;
+			rb.velocity = new Vector2(rb.velocity.x, 0);
 		}
 		//state machine
 		private void AnimationState()

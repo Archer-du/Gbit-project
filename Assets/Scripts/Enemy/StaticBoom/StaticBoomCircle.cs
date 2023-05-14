@@ -1,8 +1,4 @@
-using GbitProjectControl;
-using GbitProjectState;
 using UnityEngine;
-
-using EnemyController;
 
 public class StaticBoomCircle : MonoBehaviour
 {

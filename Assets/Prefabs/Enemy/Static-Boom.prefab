@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15bafb4eaf72e304f800c7b20d8491e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyState: {fileID: 0}
   enemyEnergy: 1
   attackScale: 0
   currentInterval: 0
@@ -135,7 +136,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 0d9d52ce45d1d734d9cb9361f37820e8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -257,9 +258,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbd3ab391a045014192bc5489ac07152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyEnergy: 0
-  attackScale: 0
-  currentInterval: 0
-  maxInterval: 0
-  player: {fileID: 0}
-  animator: {fileID: 0}

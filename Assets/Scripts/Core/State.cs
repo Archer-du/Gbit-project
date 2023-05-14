@@ -47,29 +47,5 @@ namespace GbitProjectState
 			death = false;
 		}
 	}
-    public class EnemyState
-    {
-
-        public enum State
-        {
-            Idle,
-            Attack,
-			Alert,
-            Dead
-        }
-
-        private State currentState;
-
-        public State CurrentState
-        {
-            get { return currentState; }
-            set { currentState = value; }
-        }
-
-        public EnemyState()
-        {
-            currentState = State.Idle;
-        }
-    }
 }
 
